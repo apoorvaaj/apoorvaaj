@@ -974,8 +974,12 @@
 
 
   /* Request Demo dialog */
-  .demo-dialog { margin: auto; width: min(560px, calc(100vw - 2rem)); max-height: calc(100vh - 2rem); overflow: auto; border: 1px solid var(--border); background: var(--surface); color: var(--text); padding: 2rem 2rem 1.6rem; box-shadow: 0 24px 60px rgba(15,34,64,0.18); }
-  .demo-dialog::backdrop { background: rgba(15,34,64,0.45); }
+  /* Overlay stays rendered but invisible when closed, so the hCaptcha box is drawn at full size from the start.
+     z-index is far below hCaptcha's puzzle window, so the puzzle always appears on top. */
+  .demo-overlay { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 1rem; background: rgba(15,34,64,0.45); visibility: hidden; opacity: 0; transition: opacity 0.15s; }
+  .demo-overlay.open { visibility: visible; opacity: 1; }
+  body.demo-open { overflow: hidden; }
+  .demo-dialog { position: relative; margin: auto; width: min(560px, calc(100vw - 2rem)); max-height: calc(100vh - 2rem); overflow: auto; border: 1px solid var(--border); background: var(--surface); color: var(--text); padding: 2rem 2rem 1.6rem; box-shadow: 0 24px 60px rgba(15,34,64,0.18); }
   .demo-x { position: absolute; top: 0.8rem; right: 1rem; background: none; border: none; font-size: 1.6rem; line-height: 1; color: var(--text-dim); cursor: pointer; }
   .demo-kicker { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); font-weight: bold; }
   .demo-title { font-family: var(--serif); font-weight: 500; font-size: 1.6rem; margin: 0.3rem 0 1.2rem; color: var(--text); }
@@ -1645,7 +1649,8 @@
 </div>
 
 <!-- ===== Request Demo form (sent via Web3Forms, protected by hCaptcha) ===== -->
-<dialog id="demo-dialog" class="demo-dialog" aria-labelledby="demo-title">
+<div id="demo-overlay" class="demo-overlay">
+<div id="demo-dialog" class="demo-dialog" role="dialog" aria-modal="true" aria-labelledby="demo-title">
   <button type="button" class="demo-x" id="demo-close" aria-label="Close">×</button>
   <div class="demo-kicker">Request a demo</div>
   <h3 id="demo-title" class="demo-title"><span id="demo-project-label">Project</span></h3>
@@ -1669,7 +1674,8 @@
     <p><strong>Thank you, your request has been sent.</strong><br>Apoorva will reply by email to arrange a time.</p>
     <button type="button" id="demo-done-close" class="btn-secondary">Close</button>
   </div>
-</dialog>
+</div>
+</div>
 
 <footer>
   <span>© 2026 AJ Portfolio · All rights reserved</span>
@@ -1715,10 +1721,12 @@
     return 'mailto:' + DEMO_EMAIL + '?subject=' + encodeURIComponent('Demo request: ' + name) + '&body=' + encodeURIComponent(body);
   }
 
-  var demoDialog = document.getElementById('demo-dialog');
+  var demoOverlay = document.getElementById('demo-overlay');
   var demoForm = document.getElementById('demo-form');
   var demoStatus = document.getElementById('demo-status');
+  var demoLastFocus = null;
 
+  function demoIsOpen() { return demoOverlay.classList.contains('open'); }
   function openDemo(name) {
     demoForm.reset();
     demoForm.hidden = false;
@@ -1729,16 +1737,20 @@
     demoForm.elements['project'].value = name;
     demoForm.elements['subject'].value = 'Demo request: ' + name;
     if (window.hcaptcha) { try { window.hcaptcha.reset(); } catch (e) {} }
-    if (typeof demoDialog.showModal === 'function') demoDialog.showModal(); else demoDialog.setAttribute('open', '');
-    setTimeout(function () { demoForm.elements['name'].focus(); }, 50);
+    demoLastFocus = document.activeElement;
+    demoOverlay.classList.add('open');
+    document.body.classList.add('demo-open');
+    setTimeout(function () { demoForm.elements['name'].focus(); }, 60);
   }
   function closeDemo() {
-    if (typeof demoDialog.close === 'function') { if (demoDialog.open) demoDialog.close(); }
-    else demoDialog.removeAttribute('open');
+    demoOverlay.classList.remove('open');
+    document.body.classList.remove('demo-open');
+    if (demoLastFocus && demoLastFocus.focus) demoLastFocus.focus();
   }
   document.getElementById('demo-close').addEventListener('click', closeDemo);
   document.getElementById('demo-done-close').addEventListener('click', closeDemo);
-  demoDialog.addEventListener('click', function (e) { if (e.target === demoDialog) closeDemo(); });
+  demoOverlay.addEventListener('click', function (e) { if (e.target === demoOverlay) closeDemo(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && demoIsOpen()) closeDemo(); });
 
   demoForm.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -1804,8 +1816,14 @@
     } else {
       btn.textContent = 'Request Demo →';
       btn.addEventListener('click', function () {
-        if (demoFormReady) { openDemo(name); gcEvent('demo-form-opened-' + slug(name), 'Demo form opened: ' + name); }
-        else { gcEvent('demo-request-' + slug(name), 'Demo request (email): ' + name); window.location.href = mailtoFor(name); }
+        try {
+          if (!demoFormReady) throw new Error('form not configured');
+          openDemo(name);
+          gcEvent('demo-form-opened-' + slug(name), 'Demo form opened: ' + name);
+        } catch (err) {
+          gcEvent('demo-request-' + slug(name), 'Demo request (email): ' + name);
+          window.location.href = mailtoFor(name);
+        }
       });
       row.appendChild(btn);
     }
