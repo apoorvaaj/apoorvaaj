@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spontaneous vs Deliberate | Apoorva Joshi</title>
+<meta name="description" content="Two vibe-coded builds, two processes: BeatKeeper built spontaneously, MealPartner built requirements-first and test-first. A technical comparison with the pros and cons of each.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spontaneous vs Deliberate: Two Ways I Vibe Coded">
+<meta property="og:description" content="Same builder, same AI tools, two processes. What following the idea bought me, what locking the requirements first bought me, and what each one cost.">
+<meta property="og:url" content="https://apoorvaaj.github.io/spontaneous-vs-deliberate.html">
+<meta property="og:site_name" content="Apoorva Joshi">
+<meta property="og:image" content="https://apoorvaaj.github.io/preview.png">
+<meta property="og:image:secure_url" content="https://apoorvaaj.github.io/preview.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://apoorvaaj.github.io/preview.png">
+<link rel="canonical" href="https://apoorvaaj.github.io/spontaneous-vs-deliberate.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230a7178'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='28' fill='white' text-anchor='middle'%3EAJ%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f3f6fa; --surface: #ffffff; --surface2: #e9eef5; --border: #d6dfea;
+    --accent: #0a7178; --accent3: #2b56a8; --text: #0f2240; --text-dim: #43536b; --text-dimmer: #5f6e84;
+    --warm: #a33a12;
+    --sans: Verdana, Geneva, Tahoma, sans-serif;
+    --serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.6; }
+
+  nav { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+        padding: 1.1rem 4rem; background: rgba(243,246,250,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); text-decoration: none; }
+  .nav-logo span { color: var(--text-dim); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; margin: 0; }
+  .nav-links li { padding: 0; margin: 0; font-size: inherit; line-height: inherit; }
+  .nav-links li::before { display: none; }
+  .nav-links a { position: relative; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.25s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+  .nav-links a.active { color: var(--accent); }
+
+  article { max-width: 760px; margin: 0 auto; padding: 4.5rem 1.5rem 3rem; }
+  .kicker { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); font-weight: bold;
+            display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
+  .kicker::before { content: ''; width: 32px; height: 1px; background: var(--accent); }
+  .kicker .dim { color: var(--text-dimmer); font-weight: normal; }
+  h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(2.1rem, 5.3vw, 3.2rem); line-height: 1.12; margin: 1.1rem 0 1.6rem; }
+  h1 em { color: var(--accent); }
+  .byline { display: flex; align-items: center; gap: 0.9rem; padding-bottom: 2rem; margin-bottom: 2.4rem; border-bottom: 1px solid var(--border); }
+  .avatar { width: 46px; height: 46px; border-radius: 10px; background: var(--accent); color: #fff; font-family: var(--serif); font-size: 1.15rem;
+            display: flex; align-items: center; justify-content: center; flex: none; }
+  .byline b { display: block; font-size: 0.88rem; }
+  .byline span { font-size: 0.76rem; color: var(--text-dimmer); }
+
+  .lede { font-family: var(--serif); font-size: 1.45rem; line-height: 1.5; color: var(--text); margin-bottom: 1.6rem; }
+  p { font-size: 1rem; line-height: 1.85; color: var(--text-dim); margin-bottom: 1.35rem; }
+  p strong, li strong { color: var(--text); }
+  h2 { font-family: var(--serif); font-weight: 500; font-size: 1.75rem; line-height: 1.25; margin: 3rem 0 1.1rem; color: var(--text); }
+  h3 { font-family: var(--serif); font-weight: 500; font-size: 1.3rem; line-height: 1.3; margin: 2.2rem 0 0.9rem; color: var(--text); }
+  ul, ol { list-style: none; margin: 0 0 1.6rem; }
+  li { position: relative; padding-left: 1.5rem; margin-bottom: 0.95rem; font-size: 1rem; line-height: 1.8; color: var(--text-dim); }
+  ul > li::before { content: ''; position: absolute; left: 0.2rem; top: 0.72rem; width: 7px; height: 7px; background: var(--accent); transform: rotate(45deg); }
+  ol { counter-reset: n; }
+  ol > li { counter-increment: n; padding-left: 2rem; }
+  ol > li::before { content: counter(n); position: absolute; left: 0; top: 0.18rem; width: 1.35rem; height: 1.35rem; border: 1px solid var(--accent);
+                    color: var(--accent); font-size: 0.68rem; display: flex; align-items: center; justify-content: center; }
+  a { color: var(--accent); }
+
+  .pull { margin: 2.6rem 0; padding: 1.6rem 1.8rem; border-left: 3px solid var(--accent); background: var(--surface); }
+  .pull p { font-family: var(--serif); font-size: 1.45rem; line-height: 1.45; color: var(--text); margin: 0; }
+
+  .table-wrap { overflow-x: auto; margin: 1.6rem 0 2rem; border: 1px solid var(--border); background: var(--surface); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; line-height: 1.55; min-width: 560px; }
+  th { text-align: left; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
+       background: var(--surface2); padding: 0.75rem 0.9rem; border-bottom: 1px solid var(--border); }
+  td { padding: 0.75rem 0.9rem; border-bottom: 1px solid var(--border); color: var(--text-dim); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td:first-child { color: var(--text); font-weight: bold; }
+  th.spont { color: var(--warm); }
+  td.lean-s { color: var(--warm); font-weight: bold; }
+  td.lean-d { color: var(--accent); font-weight: bold; }
+
+  /* Pros and cons, side by side */
+  .pc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.2rem 0 2rem; }
+  .pc { background: var(--surface); border: 1px solid var(--border); padding: 1.3rem 1.3rem 0.4rem; }
+  .pc-label { font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: bold; margin-bottom: 0.9rem; display: flex; align-items: center; gap: 0.5rem; }
+  .pc.pro .pc-label { color: var(--accent); }
+  .pc.con .pc-label { color: var(--warm); }
+  .pc li { font-size: 0.88rem; line-height: 1.7; margin-bottom: 0.8rem; }
+  .pc.con ul > li::before { background: var(--warm); }
+
+  /* Process strips */
+  .strip { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; margin: 0.4rem 0 1.6rem; }
+  .strip span { font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.4rem 0.6rem; border: 1px solid var(--border); background: var(--surface2); color: var(--text-dim); }
+  .strip span.key { border-color: var(--accent); color: var(--accent); background: rgba(10,113,120,0.08); }
+  .strip span.warn { border-color: var(--warm); color: var(--warm); background: rgba(163,58,18,0.06); }
+  .strip i { font-style: normal; color: var(--text-dimmer); font-size: 0.75rem; }
+
+  .cta { margin: 3.2rem 0 0; padding: 2rem; background: var(--surface); border: 1px solid var(--border); }
+  .cta h3 { font-family: var(--serif); font-weight: 500; font-size: 1.45rem; margin: 0 0 0.5rem; }
+  .cta p { font-size: 0.9rem; margin-bottom: 1.3rem; }
+  .cta-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.08em;
+         text-transform: uppercase; text-decoration: none; padding: 0.85rem 1.4rem; border: 1px solid var(--accent); }
+  .btn.primary { background: var(--accent); color: #fff; }
+  .btn.primary:hover { background: var(--text); border-color: var(--text); }
+  .btn.secondary { color: var(--text-dim); border-color: var(--border); background: transparent; }
+  .btn.secondary:hover { color: var(--accent); border-color: var(--accent); }
+
+  footer { border-top: 1px solid var(--border); padding: 1.5rem 4rem; display: flex; justify-content: center; font-size: 0.68rem;
+           color: var(--text-dimmer); letter-spacing: 0.06em; }
+
+  @media (max-width: 768px) {
+    nav { padding: 0.9rem 1.25rem; }
+    .nav-logo span { display: none; }
+    .nav-links { gap: 0.75rem; }
+    .nav-links a { font-size: 0.62rem; letter-spacing: 0.04em; white-space: nowrap; }
+    article { padding: 2.6rem 1.25rem 2rem; }
+    .lede { font-size: 1.25rem; }
+    h2 { font-size: 1.5rem; margin-top: 2.4rem; }
+    .pull { padding: 1.2rem 1.2rem; }
+    .pull p { font-size: 1.25rem; }
+    .pc-grid { grid-template-columns: 1fr; }
+    .cta { padding: 1.4rem 1.2rem; }
+    .btn { width: 100%; }
+    footer { flex-direction: column; gap: 0.4rem; text-align: center; padding: 1.4rem 1.25rem; }
+  }
+  @media (max-width: 400px) {
+    nav { padding-left: 1rem; padding-right: 1rem; }
+    .nav-links { gap: 0.6rem; }
+    .nav-links a { font-size: 0.58rem; letter-spacing: 0.03em; }
+  }
+  @media print {
+    nav, .cta-actions { display: none; }
+    body { background: #fff; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">AJ<span> / Portfolio</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#profile">Profile</a></li>
+    <li><a href="ba-to-ai-consultant.html">My Path</a></li>
+    <li><a href="index.html#projects">Projects</a></li>
+    <li><a href="index.html#blogs" class="active">Blogs</a></li>
+    <li><a href="index.html#about">About</a></li>
+  </ul>
+</nav>
+
+<article>
+  <div class="kicker">AI · Software Engineering <span class="dim">· Oct 2026 · 8 min read</span></div>
+  <h1>Spontaneous vs Deliberate: <em>Two Ways I Vibe Coded</em></h1>
+  <div class="byline">
+    <div class="avatar" aria-hidden="true">AJ</div>
+    <div><b>Apoorva Joshi</b><span>AI Solution Consultant (Presales) · Product Manager</span></div>
+  </div>
+
+  <p class="lede">Same builder, same AI coding tools, two very different processes: BeatKeeper was built by following the idea wherever it led, MealPartner by locking the requirements first and then building test by test.</p>
+  <p>I built BeatKeeper in January 2026 and MealPartner in June 2026. Both were vibe coded, in the loose sense: I described what I wanted to an AI coding agent and steered by results rather than by typing the code myself. What changed between them was not the tooling. It was where the thinking happened: in the conversation with the agent, or before it started.</p>
+  <p>This post compares the two processes in technical detail, and is honest about what each one bought me and what each one cost. In my earlier post, <a href="vibe-coding.html">Agile, Waterfall and the Vibe</a>, I argued for a hybrid in principle. This is the evidence from my own builds.</p>
+
+  <h2>The two projects at a glance</h2>
+  <p>The projects are different enough in shape that the process difference is not just style; each process suited, and strained against, a different kind of system.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th></th><th>BeatKeeper</th><th>MealPartner</th></tr></thead>
+      <tbody>
+        <tr><td>Built</td><td>January 2026</td><td>June 2026</td></tr>
+        <tr><td>What it does</td><td>A team of AI agents that runs a weekly content campaign for busy professionals</td><td>A WhatsApp assistant that suggests meals to university students</td></tr>
+        <tr><td>AI pattern</td><td>Multi-agent orchestration on a hosted model</td><td>Retrieval-augmented generation with a small local model</td></tr>
+        <tr><td>Stack</td><td>Python, Claude API, FastAPI, Streamlit, Playwright, pytest, mypy</td><td>Node.js, Ollama, SQLite vector search</td></tr>
+        <tr><td>Core structure</td><td>Five layers: Sense, Decide, Produce, Assure, Package, called only by one orchestrator</td><td>Conversation state machine, then filter and hybrid ranking, then confidence tiers, then a templated reply</td></tr>
+        <tr><td>Where the LLM is trusted</td><td>Drafting, repurposing, fact and compliance checking, always behind citations and human approval</td><td>Only narrow, schema-constrained tasks; it never writes recipe content or links</td></tr>
+        <tr><td>Process</td><td>Spontaneous: idea first, structure emerged</td><td>Deliberate: requirements to v2.3, then build with tests</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>BeatKeeper: the spontaneous build</h2>
+  <p>BeatKeeper started as an idea and a first prompt, not a document; its architecture was discovered in the build and then hardened after the fact.</p>
+  <div class="strip" aria-label="BeatKeeper process">
+    <span>Idea</span><i>→</i><span>Scaffold</span><i>→</i><span>Grow by prompt</span><i>→</i><span class="warn">Coupling wall</span><i>→</i><span class="key">Refactor</span><i>→</i><span class="key">Retrofit tests</span>
+  </div>
+  <p>The idea was simple to say: agents that watch a professional's domain, an editor that picks topics, a writer that drafts, and a checker that catches mistakes. I opened VS Code with an AI coding assistant and asked for exactly that. Here is how it unfolded, technically.</p>
+  <ol>
+    <li><strong>Scaffold from a sentence.</strong> The first session produced a working pipeline: a Python script that called the Claude API once per role, passing plain strings between them. It ran end to end within a day, which was exhilarating and is the main argument for this way of working.</li>
+    <li><strong>Grow one role at a time.</strong> Each new idea became a prompt to the agent: add a regulatory watcher, add a repurposer for short formats, add a visual designer. Each role arrived with its own prompt text inline and its own way of calling the model. The system grew sideways, not by design.</li>
+    <li><strong>Hit the coupling wall.</strong> Once there were around eight roles, roles had started calling each other directly and passing loosely shaped dictionaries. A change to the writer's output broke the fact checker downstream, silently. The agent fixed each break locally, which often created the next one.</li>
+    <li><strong>Refactor into the structure it needed.</strong> I stepped back and asked for the architecture the system had been hinting at: five layers (Sense, Decide, Produce, Assure, Package) with one orchestrator as the only component allowed to call a role. Typed data contracts checked by mypy replaced the dictionaries. All model calls were routed through one logged client, and prompts were pulled out into versioned files per role.</li>
+    <li><strong>Retrofit quality and rules.</strong> Output quality was judged by reading drafts until I built a golden dataset of reference cases and ran evals against it. The non-negotiables, such as citation-enforced claims, mandatory human approval of the topic and of the final pack, no auto-posting, no scraping of login-walled sites, and respecting robots.txt, became pytest tests only after the behaviour already existed.</li>
+  </ol>
+  <p>The finished prototype is disciplined. The path to it was not: a large share of the effort went into restructuring code that had been generated quickly in the first place.</p>
+
+  <h2>MealPartner: the deliberate build</h2>
+  <p>MealPartner did not get a line of code until its requirements reached version 2.3 with every open question closed; then a coding agent built it in tested slices against that document.</p>
+  <div class="strip" aria-label="MealPartner process">
+    <span class="key">Requirements v2.3</span><i>→</i><span class="key">LLM boundary</span><i>→</i><span>Failure modes</span><i>→</i><span>Scope</span><i>→</i><span>Tests first</span><i>→</i><span>Build slice</span><i>→</i><span>Review diff</span>
+  </div>
+  <ol>
+    <li><strong>Requirements as the product.</strong> Several sessions produced only a requirements document. It defined the user (a university student), the conversation flow (pick a food type first: main meal, dessert, cocktail or mocktail; protein and carb questions only for main meals), and the reply rule (show the best-ranked match, then offer more options).</li>
+    <li><strong>Decide what the model may and may not do.</strong> The key design decision was a boundary: the code decides, the model assists. Free text is matched in stages, exact then fuzzy then a constrained LLM call, and the LLM only ever returns schema-constrained output. It never writes recipe content or links. That single rule removed most hallucination and prompt-injection risk before any code existed.</li>
+    <li><strong>Write the failure modes down.</strong> Confidence tiers decide whether a match is shown, shown with a caveat, or not shown. When nothing fits, the bot says so and logs the request to a ranked queue for the recipe curator; silence counts as failure. These were requirements, so they became test cases rather than afterthoughts.</li>
+    <li><strong>Fix scope and constraints explicitly.</strong> One test user, designed for 100+. English only. Allergies and dietary restrictions out of scope. No encryption at rest. Target machine: Windows 11, AMD Ryzen AI, 32 GB RAM, which is why a small local model on Ollama and SQLite vector search, not a hosted stack. The model and messaging layers sit behind interfaces so a hosted LLM or the official WhatsApp API can be swapped in later.</li>
+    <li><strong>Hand off, then build test-first.</strong> The finalised document went to Claude Code as the source of truth. Each slice (intent detection, the state machine, filtering and hybrid ranking, confidence tiers, templated replies) started from tests derived from the acceptance criteria, then implementation to make them pass, then my review of the diff.</li>
+  </ol>
+  <p>The first code arrived much later than BeatKeeper's did. Very little of it has had to be rewritten.</p>
+
+  <h2>Process compared, stage by stage</h2>
+  <p>The difference is not whether each stage happened, but when it happened and what forced it.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Stage</th><th class="spont">BeatKeeper (spontaneous)</th><th>MealPartner (deliberate)</th></tr></thead>
+      <tbody>
+        <tr><td>Requirements</td><td>Lived in the prompt history; reconstructed later</td><td>A versioned document, iterated to v2.3 before any code</td></tr>
+        <tr><td>Architecture</td><td>Emerged from accumulated prompts, then refactored into five layers and one orchestrator</td><td>Designed up front: state machine, staged matching, ranking, confidence tiers</td></tr>
+        <tr><td>Interfaces between parts</td><td>Loose dictionaries first, typed contracts (mypy) added during refactor</td><td>Defined in the requirements; model and messaging layers abstracted from day one</td></tr>
+        <tr><td>LLM boundary</td><td>Decided role by role as each agent was added</td><td>One rule for the whole system: code decides, model assists, schema-constrained output only</td></tr>
+        <tr><td>Non-functional rules</td><td>Discovered, then enforced by tests after the fact</td><td>Stated as requirements (scope, scale, hardware, security) before the build</td></tr>
+        <tr><td>Testing</td><td>Retrofitted: pytest for hard rules, golden-dataset evals for quality</td><td>Test-first per slice, derived from acceptance criteria</td></tr>
+        <tr><td>Unit of change</td><td>Whole features in one agent session, large diffs</td><td>One slice per session, reviewed diff, commit on green</td></tr>
+        <tr><td>Failure handling</td><td>Fixed as breakages surfaced downstream</td><td>Designed: confidence tiers, honest no-match reply, unmet-request queue</td></tr>
+        <tr><td>Context for the agent</td><td>The conversation itself, which drifted as it grew</td><td>The requirements document, re-read fresh each session</td></tr>
+        <tr><td>Time to first working demo</td><td>About a day</td><td>Several requirement sessions before any code</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Pros and cons</h2>
+  <p>Spontaneous building buys speed and discovery at the price of rework; deliberate building buys correctness and safety at the price of a slow start.</p>
+
+  <h3>Spontaneous (BeatKeeper)</h3>
+  <div class="pc-grid">
+    <div class="pc pro">
+      <div class="pc-label">Pros</div>
+      <ul>
+        <li><strong>Fastest path to something real.</strong> A working end-to-end pipeline in about a day. Nothing clarifies an idea like watching it run.</li>
+        <li><strong>Discovery.</strong> Several of BeatKeeper's best features, such as the repurposer and the Assure layer, came from seeing early output and reacting to it. I would not have specified them on day one.</li>
+        <li><strong>Low cost of being wrong early.</strong> When the problem itself is fuzzy, a spec written too soon fixes the wrong thing in place.</li>
+        <li><strong>Momentum and motivation.</strong> Visible progress every session kept a solo side project alive.</li>
+      </ul>
+    </div>
+    <div class="pc con">
+      <div class="pc-label">Cons</div>
+      <ul>
+        <li><strong>Architecture by accident.</strong> Structure followed the order of my ideas, not the shape of the problem, and cost a major refactor to undo.</li>
+        <li><strong>Silent coupling.</strong> Untyped hand-offs between roles let one change break another without any error.</li>
+        <li><strong>Inconsistent LLM boundaries.</strong> Each role trusted the model to a different degree until I imposed one logged client and citation enforcement.</li>
+        <li><strong>Tests as archaeology.</strong> Writing tests after the fact meant first working out what the code actually did, then deciding whether that was what I wanted.</li>
+        <li><strong>Context drift.</strong> Long agent sessions accumulated confusion; the conversation was the only record of intent, and it contradicted itself.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Deliberate (MealPartner)</h3>
+  <div class="pc-grid">
+    <div class="pc pro">
+      <div class="pc-label">Pros</div>
+      <ul>
+        <li><strong>Risk designed out, not patched out.</strong> The decision that the model never writes recipe content removed whole classes of hallucination and prompt-injection risk before any code existed.</li>
+        <li><strong>A stable source of truth for the agent.</strong> Every Claude Code session started from the same document, so there was little drift between sessions.</li>
+        <li><strong>Tests are cheap and meaningful.</strong> Acceptance criteria translated directly into test cases, including the unhappy paths.</li>
+        <li><strong>Smaller, reviewable diffs.</strong> One slice per session made it realistic to read every change.</li>
+        <li><strong>Scale and swap built in.</strong> Abstracted model and messaging layers mean moving from one user to 100+, or to a hosted model, is a contained change, not a rewrite.</li>
+      </ul>
+    </div>
+    <div class="pc con">
+      <div class="pc-label">Cons</div>
+      <ul>
+        <li><strong>Slow start.</strong> Several sessions of thinking with nothing to click; harder to stay motivated and harder to show anyone.</li>
+        <li><strong>Assumptions untested by reality.</strong> A requirements document can be internally consistent and still wrong about how students actually talk to a bot. Only real use will tell.</li>
+        <li><strong>Risk of over-specification.</strong> Some decisions locked early might have been better made after seeing the system run.</li>
+        <li><strong>Process overhead.</strong> For a one-user prototype, versioned requirements and test-first slices can feel like ceremony.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>When to use which, and what I would do next time</h2>
+  <p>Neither process wins outright; the right one depends on how well you understand the problem and how much damage a wrong answer can do.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Situation</th><th>Lean towards</th></tr></thead>
+      <tbody>
+        <tr><td>The problem itself is unclear and you need to see it to understand it</td><td class="lean-s">Spontaneous</td></tr>
+        <tr><td>A throwaway spike or a demo for a conversation next week</td><td class="lean-s">Spontaneous</td></tr>
+        <tr><td>The LLM touches facts, money, health, personal data or anything a user will act on</td><td class="lean-d">Deliberate</td></tr>
+        <tr><td>Many components that must hand data to each other reliably</td><td class="lean-d">Deliberate</td></tr>
+        <tr><td>You expect to scale, swap models or hand the code to someone else</td><td class="lean-d">Deliberate</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Next time I will run both, in sequence, on purpose:</p>
+  <ol>
+    <li><strong>Spike spontaneously for a day or two.</strong> Vibe a throwaway prototype to learn what the problem really is. Treat the code as disposable.</li>
+    <li><strong>Write the requirements from what the spike taught.</strong> Including the LLM boundary, the failure modes and the out-of-scope list, which are exactly what BeatKeeper discovered painfully.</li>
+    <li><strong>Rebuild deliberately.</strong> Fresh repository, the document as the agent's source of truth, test-first slices, every diff read.</li>
+  </ol>
+  <div class="pull"><p>Spontaneity is good for finding the shape of an idea. Deliberation is good for making that shape safe to trust.</p></div>
+  <p>BeatKeeper taught me the first; MealPartner taught me the second. The mistake is using either one for the other's job.</p>
+
+  <div class="cta">
+    <h3>Let's talk</h3>
+    <p>I'm open to roles in AI solution consulting (presales) and product management.</p>
+    <div class="cta-actions">
+      <a class="btn primary" href="https://www.linkedin.com/in/apoorva-joshi" target="_blank" rel="noopener">Connect on LinkedIn →</a>
+      <a class="btn secondary" href="index.html#projects">View my projects</a>
+      <a class="btn secondary" href="index.html#blogs">More posts</a>
+    </div>
+  </div>
+</article>
+
+<footer>
+  <span>© 2026 Apoorva Joshi · Singapore</span>
+</footer>
+
+<!-- Visitor analytics: GoatCounter -->
+<script data-goatcounter="https://apoorvaaj.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>
