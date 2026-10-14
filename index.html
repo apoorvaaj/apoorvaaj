@@ -964,6 +964,36 @@
   .resume-btn { margin-top: 1.5rem; width: 100%; }
   .contact-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
 
+
+  /* Request Demo button (added automatically to every recent project card) */
+  .demo-row { display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap; margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px solid var(--border); }
+  .demo-btn { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.75rem 1.4rem; border: 1px solid var(--accent); background: var(--accent); color: #fff; cursor: pointer; transition: background 0.2s, border-color 0.2s; }
+  .demo-btn:hover { background: var(--text); border-color: var(--text); }
+  .demo-btn:disabled { background: transparent; color: var(--text-dimmer); border-color: var(--border); cursor: not-allowed; }
+  .demo-note { font-size: 0.74rem; color: var(--text-dimmer); }
+
+
+  /* Request Demo dialog */
+  .demo-dialog { margin: auto; width: min(560px, calc(100vw - 2rem)); max-height: calc(100vh - 2rem); overflow: auto; border: 1px solid var(--border); background: var(--surface); color: var(--text); padding: 2rem 2rem 1.6rem; box-shadow: 0 24px 60px rgba(15,34,64,0.18); }
+  .demo-dialog::backdrop { background: rgba(15,34,64,0.45); }
+  .demo-x { position: absolute; top: 0.8rem; right: 1rem; background: none; border: none; font-size: 1.6rem; line-height: 1; color: var(--text-dim); cursor: pointer; }
+  .demo-kicker { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); font-weight: bold; }
+  .demo-title { font-family: var(--serif); font-weight: 500; font-size: 1.6rem; margin: 0.3rem 0 1.2rem; color: var(--text); }
+  .demo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem 1rem; }
+  #demo-form label { display: block; font-size: 0.74rem; color: var(--text-dim); margin-bottom: 0.9rem; }
+  .demo-grid label { margin-bottom: 0 !important; }
+  #demo-form label span { color: var(--accent); }
+  #demo-form input[type=text], #demo-form input[type=email], #demo-form textarea { display: block; width: 100%; margin-top: 0.35rem; font: inherit; font-size: 0.86rem; color: var(--text); background: var(--bg); border: 1px solid var(--border); padding: 0.6rem 0.7rem; }
+  #demo-form input:focus, #demo-form textarea:focus { outline: 2px solid rgba(10,113,120,0.35); border-color: var(--accent); }
+  .demo-grid + label { margin-top: 0.9rem; }
+  .demo-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .h-captcha { margin: 0.4rem 0 0.8rem; min-height: 78px; }
+  .demo-status { font-size: 0.8rem; min-height: 1.2rem; margin-bottom: 0.8rem; color: var(--text-dim); }
+  .demo-status.error { color: #b42318; }
+  .demo-status a { color: var(--accent); }
+  .demo-done p { font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.2rem; color: var(--text-dim); }
+  .demo-done strong { color: var(--text); }
+
   /* ==================== MOBILE ==================== */
   @media (max-width: 768px) {
     .page { padding-top: 64px; }
@@ -1026,6 +1056,9 @@
     .contact-title { font-size: 1.7rem; }
     .contact-strip .btn-primary, .contact-strip .btn-secondary { width: 100%; }
     .contact-actions { flex-direction: column; }
+    .demo-btn { width: 100%; }
+    .demo-dialog { padding: 1.6rem 1.2rem 1.2rem; }
+    .demo-grid { grid-template-columns: 1fr; }
     .resume-btn { grid-column: 1 / -1; }
   }
 
@@ -1036,7 +1069,7 @@
   }
 
   @media print {
-    nav, .now-pill, .home-ctas, .btn-link, .grid-bg, .home-glow, .home-glow2, body::before { display: none !important; }
+    nav, .now-pill, .home-ctas, .btn-link, .demo-row, .grid-bg, .home-glow, .home-glow2, body::before { display: none !important; }
     .page { display: block !important; min-height: 0; padding-top: 0; animation: none; }
     #home { min-height: 0; }
     *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -1069,7 +1102,7 @@
   <div class="home-glow"></div>
   <div class="home-glow2"></div>
   <div class="home-content">
-    <button class="now-pill" onclick="showPage('projects')"><span class="badge">NEW</span>Latest work: Multi-agent, agentic &amp; RAG builds — BeatKeeper, Attic, MealPartner →</button>
+    <button type="button" class="now-pill" onclick="showPage('projects')"><span class="badge">NEW</span>Latest work: RAG, multi-agent &amp; agentic AI builds — MealPartner, BeatKeeper, Attic →</button>
     <div class="home-eyebrow">AI Solution Consultant (Presales) · Product Manager</div>
     <h1 class="home-title">
       Turning<br>
@@ -1088,8 +1121,8 @@
       <span class="tag">Machine Learning</span>
     </div>
     <div class="home-ctas">
-      <button class="btn-primary" onclick="showPage('projects')">View Projects</button>
-      <button class="btn-secondary" onclick="showPage('profile')">My Profile →</button>
+      <button type="button" class="btn-primary" onclick="showPage('projects')">View Projects</button>
+      <button type="button" class="btn-secondary" onclick="showPage('profile')">My Profile →</button>
       <a class="btn-secondary btn-link" href="Apoorva_Joshi_Resume.pdf" target="_blank" rel="noopener" onclick="trackResume()">Resume (PDF) ↓</a>
     </div>
   </div>
@@ -1222,98 +1255,20 @@
     </div>
 
     <!-- ===== RECENT WORK · 2026 ===== -->
-    <div class="group-label"><span class="dot"></span>Recent Work · 2026</div>
+    <div class="group-label"><span class="dot"></span>Recent Work · 2025–2026</div>
+    <!--
+      HOW TO ADD A NEW RECENT PROJECT
+      Copy one of the cards below and change data-project="..." to the project's name.
+      A "Request Demo" button is added to every card in this section automatically.
+      To show the button greyed out ("Demo coming soon"), add data-demo="soon" to the card.
+    -->
     <div class="projects-grid recent-grid">
 
-      <!-- BeatKeeper -->
-      <div class="project-card recent" onmousemove="trackMouse(this, event)">
-        <div class="recent-inner">
-          <div>
-            <div class="project-card-num">01 <span class="badge">NEW · 2026</span><span class="badge">WORKING PROTOTYPE</span></div>
-            <div class="project-card-cat">Multi-Agent AI · LLM Orchestration · Responsible AI</div>
-            <div class="project-card-title">BeatKeeper — Multi-Agent Content Campaign System</div>
-
-            <div class="story-block">
-              <div class="story-label">The problem</div>
-              <p>Consultants, advisors and analysts win business through visible expertise. Staying visible means tracking industry and regulatory news every week and turning it into articles and posts, which takes hours they rarely have. Generic AI writing tools fill the gap with bland content that can misstate facts, a real risk in regulated fields such as financial services.</p>
-            </div>
-
-            <div class="story-block">
-              <div class="story-label">How BeatKeeper solves it</div>
-              <p>A team of specialised AI roles runs the weekly campaign. They watch the user's domain, suggest topics worth having a view on, and draft from the user's own opinion, not a generic one. The user picks the topic and states their view, the system writes a long-form article and adapts it into shorter formats, and every piece is fact-checked and compliance-checked before the user approves a publish-ready pack. The user stays the author, and the system never posts on their behalf.</p>
-            </div>
-
-            <div class="story-block">
-              <div class="story-label">Technical details</div>
-              <ul class="highlights">
-                <li><strong>Five-layer agent pipeline:</strong> Sense (regulatory and research watch), Decide (editor-in-chief), Produce (writer, repurposer, visual designer), Assure (fact and compliance check) and Package. One orchestrator is the only component that calls the roles.</li>
-                <li><strong>Mandatory human checkpoints:</strong> the user approves the topic and their view up front, and the final output at the end. There is no auto-approve and no skip flag.</li>
-                <li><strong>Citation-enforced output:</strong> every factual claim links to a stored source and excerpt. Uncited claims cannot be approved.</li>
-                <li><strong>Built for audit:</strong> all model calls go through one logged client, prompts are versioned per role, and data contracts are typed. Quality is measured against golden-dataset evals. Hard rules (no auto-posting, no scraping of login-walled sites, robots.txt respected) are enforced by tests.</li>
-              </ul>
-            </div>
-
-            <div class="project-tags">
-              <span class="ptag">Python</span><span class="ptag">Claude API</span><span class="ptag">Multi-Agent</span><span class="ptag">FastAPI</span><span class="ptag">Streamlit</span><span class="ptag">Playwright</span><span class="ptag">LLM Evals</span><span class="ptag">pytest · mypy</span><span class="ptag">Compliance by Design</span>
-            </div>
-          </div>
-          <div class="flow" aria-label="BeatKeeper pipeline">
-            <div class="flow-step">Sense · daily</div><div class="flow-arrow">↓</div>
-            <div class="flow-step key">Decide · user picks</div><div class="flow-arrow">↓</div>
-            <div class="flow-step">Produce</div><div class="flow-arrow">↓</div>
-            <div class="flow-step key">Assure · user reviews</div><div class="flow-arrow">↓</div>
-            <div class="flow-step">Package</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Attic -->
-      <div class="project-card recent" onmousemove="trackMouse(this, event)">
-        <div class="recent-inner">
-          <div>
-            <div class="project-card-num">02 <span class="badge">NEW · 2026</span><span class="badge">WORKING PROTOTYPE</span></div>
-            <div class="project-card-cat">Agentic AI · LLM Safety · Gmail API</div>
-            <div class="project-card-title">Attic — Guardrailed Gmail Cleanup Agent</div>
-
-            <div class="story-block">
-              <div class="story-label">The problem</div>
-              <p>Inboxes fill with newsletters, promotions and notifications faster than people can sort them. Rule-based filters are tedious to set up and break easily. Handing an AI agent free access to your email is risky, because one wrong action could delete or bury something important.</p>
-            </div>
-
-            <div class="story-block">
-              <div class="story-label">How Attic solves it</div>
-              <p>Users describe in plain English how they want their inbox tidied. An AI agent reviews recent emails and proposes what to archive, label or keep, as a preview. Nothing changes in Gmail until the user approves. Firm safety rules (never delete, protect emails from real people, limit how many emails change at once) are enforced by the system whatever the AI suggests.</p>
-            </div>
-
-            <div class="story-block">
-              <div class="story-label">Technical details</div>
-              <ul class="highlights">
-                <li><strong>Defence in depth:</strong> the LLM returns structured proposals, which the server re-checks against fixed guardrails. Those guardrails cannot be removed or disabled, even through crafted API calls.</li>
-                <li><strong>Hallucination-resistant references:</strong> the model sees a numbered catalogue of email metadata, never raw Gmail IDs, so a misquoted ID cannot misfire. Every rejected proposal is reported with a reason.</li>
-                <li><strong>Conservative actions:</strong> the apply step only adds labels, and archive and delete stay preview-only. Failures are reported per email without stopping the batch.</li>
-                <li><strong>Engineering practice:</strong> Google OAuth 2.0 sign-in, a configuration per user, and a partial-update REST API. Unit tests mock the Gmail and LLM calls, and static checks keep the front end and back end consistent.</li>
-              </ul>
-            </div>
-
-            <div class="project-tags">
-              <span class="ptag">Python</span><span class="ptag">LLM Agents</span><span class="ptag">Structured Output</span><span class="ptag">Gmail API</span><span class="ptag">OAuth 2.0</span><span class="ptag">Guardrails</span><span class="ptag">Human-in-the-Loop</span><span class="ptag">Unit Testing</span>
-            </div>
-          </div>
-          <div class="flow" aria-label="Attic agent flow">
-            <div class="flow-step">Inbox metadata</div><div class="flow-arrow">↓</div>
-            <div class="flow-step">LLM proposes actions</div><div class="flow-arrow">↓</div>
-            <div class="flow-step key">Guardrails enforced</div><div class="flow-arrow">↓</div>
-            <div class="flow-step key">User approves</div><div class="flow-arrow">↓</div>
-            <div class="flow-step">Labels applied</div>
-          </div>
-        </div>
-      </div>
-
       <!-- MealPartner -->
-      <div class="project-card recent" onmousemove="trackMouse(this, event)">
+      <div class="project-card recent" data-project="MealPartner" data-demo="soon" onmousemove="trackMouse(this, event)">
         <div class="recent-inner">
           <div>
-            <div class="project-card-num">03 <span class="badge">NEW · 2026</span><span class="badge">SYSTEM DESIGN</span></div>
+            <div class="project-card-num">01 <span class="badge">JUN 2026</span><span class="badge">SYSTEM DESIGN</span></div>
             <div class="project-card-cat">RAG · Conversational AI · Local-First LLM</div>
             <div class="project-card-title">MealPartner — WhatsApp RAG Meal Assistant</div>
 
@@ -1341,12 +1296,96 @@
               <span class="ptag">RAG</span><span class="ptag">Node.js</span><span class="ptag">Ollama</span><span class="ptag">Local LLM</span><span class="ptag">SQLite Vector Search</span><span class="ptag">State Machine</span><span class="ptag">Structured Output</span><span class="ptag">Requirements Engineering</span>
             </div>
           </div>
-          <div class="flow" aria-label="MealPartner design flow">
+          <div class="flow" role="img" aria-label="MealPartner design flow">
             <div class="flow-step">WhatsApp message</div><div class="flow-arrow">↓</div>
             <div class="flow-step">Intent &amp; state</div><div class="flow-arrow">↓</div>
             <div class="flow-step key">Filter + hybrid rank</div><div class="flow-arrow">↓</div>
             <div class="flow-step key">Confidence tier</div><div class="flow-arrow">↓</div>
             <div class="flow-step">Templated reply</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BeatKeeper -->
+      <div class="project-card recent" data-project="BeatKeeper" onmousemove="trackMouse(this, event)">
+        <div class="recent-inner">
+          <div>
+            <div class="project-card-num">02 <span class="badge">JAN 2026</span><span class="badge">WORKING PROTOTYPE</span></div>
+            <div class="project-card-cat">Multi-Agent AI · LLM Orchestration · Responsible AI</div>
+            <div class="project-card-title">BeatKeeper — Multi-Agent Content Campaign System</div>
+
+            <div class="story-block">
+              <div class="story-label">The problem</div>
+              <p>Consultants, advisors and analysts win business through visible expertise. Staying visible means tracking industry and regulatory news every week and turning it into articles and posts, which takes hours they rarely have. Generic AI writing tools fill the gap with bland content that can misstate facts, a real risk in regulated fields such as financial services.</p>
+            </div>
+
+            <div class="story-block">
+              <div class="story-label">How BeatKeeper solves it</div>
+              <p>A team of specialised AI roles runs the weekly campaign. They watch the user's domain, suggest topics worth having a view on, and draft from the user's own opinion, not a generic one. The user picks the topic and states their view, the system writes a long-form article and adapts it into shorter formats, and every piece is fact-checked and compliance-checked before the user approves a publish-ready pack. The user stays the author, and the system never posts on their behalf.</p>
+            </div>
+
+            <div class="story-block">
+              <div class="story-label">Technical details</div>
+              <ul class="highlights">
+                <li><strong>Five-layer agent pipeline:</strong> Sense (regulatory and research watch), Decide (editor-in-chief), Produce (writer, repurposer, visual designer), Assure (fact and compliance check) and Package. One orchestrator is the only component that calls the roles.</li>
+                <li><strong>Mandatory human checkpoints:</strong> the user approves the topic and their view up front, and the final output at the end. There is no auto-approve and no skip flag.</li>
+                <li><strong>Citation-enforced output:</strong> every factual claim links to a stored source and excerpt. Uncited claims cannot be approved.</li>
+                <li><strong>Built for audit:</strong> all model calls go through one logged client, prompts are versioned per role, and data contracts are typed. Quality is measured against golden-dataset evals. Hard rules (no auto-posting, no scraping of login-walled sites, robots.txt respected) are enforced by tests.</li>
+              </ul>
+            </div>
+
+            <div class="project-tags">
+              <span class="ptag">Python</span><span class="ptag">Claude API</span><span class="ptag">Multi-Agent</span><span class="ptag">FastAPI</span><span class="ptag">Streamlit</span><span class="ptag">Playwright</span><span class="ptag">LLM Evals</span><span class="ptag">pytest · mypy</span><span class="ptag">Compliance by Design</span>
+            </div>
+          </div>
+          <div class="flow" role="img" aria-label="BeatKeeper pipeline">
+            <div class="flow-step">Sense · daily</div><div class="flow-arrow">↓</div>
+            <div class="flow-step key">Decide · user picks</div><div class="flow-arrow">↓</div>
+            <div class="flow-step">Produce</div><div class="flow-arrow">↓</div>
+            <div class="flow-step key">Assure · user reviews</div><div class="flow-arrow">↓</div>
+            <div class="flow-step">Package</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Attic -->
+      <div class="project-card recent" data-project="Attic" onmousemove="trackMouse(this, event)">
+        <div class="recent-inner">
+          <div>
+            <div class="project-card-num">03 <span class="badge">DEC 2025</span><span class="badge">WORKING PROTOTYPE</span></div>
+            <div class="project-card-cat">Agentic AI · LLM Safety · Gmail API</div>
+            <div class="project-card-title">Attic — Guardrailed Gmail Cleanup Agent</div>
+
+            <div class="story-block">
+              <div class="story-label">The problem</div>
+              <p>Inboxes fill with newsletters, promotions and notifications faster than people can sort them. Rule-based filters are tedious to set up and break easily. Handing an AI agent free access to your email is risky, because one wrong action could delete or bury something important.</p>
+            </div>
+
+            <div class="story-block">
+              <div class="story-label">How Attic solves it</div>
+              <p>Users describe in plain English how they want their inbox tidied. An AI agent reviews recent emails and proposes what to archive, label or keep, as a preview. Nothing changes in Gmail until the user approves. Firm safety rules (never delete, protect emails from real people, limit how many emails change at once) are enforced by the system whatever the AI suggests.</p>
+            </div>
+
+            <div class="story-block">
+              <div class="story-label">Technical details</div>
+              <ul class="highlights">
+                <li><strong>Defence in depth:</strong> the LLM returns structured proposals, which the server re-checks against fixed guardrails. Those guardrails cannot be removed or disabled, even through crafted API calls.</li>
+                <li><strong>Hallucination-resistant references:</strong> the model sees a numbered catalogue of email metadata, never raw Gmail IDs, so a misquoted ID cannot misfire. Every rejected proposal is reported with a reason.</li>
+                <li><strong>Conservative actions:</strong> the apply step only adds labels, and archive and delete stay preview-only. Failures are reported per email without stopping the batch.</li>
+                <li><strong>Engineering practice:</strong> Google OAuth 2.0 sign-in, a configuration per user, and a partial-update REST API. Unit tests mock the Gmail and LLM calls, and static checks keep the front end and back end consistent.</li>
+              </ul>
+            </div>
+
+            <div class="project-tags">
+              <span class="ptag">Python</span><span class="ptag">LLM Agents</span><span class="ptag">Structured Output</span><span class="ptag">Gmail API</span><span class="ptag">OAuth 2.0</span><span class="ptag">Guardrails</span><span class="ptag">Human-in-the-Loop</span><span class="ptag">Unit Testing</span>
+            </div>
+          </div>
+          <div class="flow" role="img" aria-label="Attic agent flow">
+            <div class="flow-step">Inbox metadata</div><div class="flow-arrow">↓</div>
+            <div class="flow-step">LLM proposes actions</div><div class="flow-arrow">↓</div>
+            <div class="flow-step key">Guardrails enforced</div><div class="flow-arrow">↓</div>
+            <div class="flow-step key">User approves</div><div class="flow-arrow">↓</div>
+            <div class="flow-step">Labels applied</div>
           </div>
         </div>
       </div>
@@ -1416,7 +1455,8 @@
             <div class="project-card-num" style="display:flex; align-items:center; gap:0.8rem;">07 <span style="font-family:var(--mono); font-size:0.6rem; letter-spacing:0.1em; color:var(--accent3); border:1px solid rgba(43,86,168,0.4); padding:0.15rem 0.55rem;">COMMUNITY RESEARCH</span></div>
             <div class="project-card-cat" style="color:var(--accent3);">EdTech · AI in Education · Policy Research</div>
             <div class="project-card-title">AI in Pedagogy — Balancing Integration &amp; Screen Time</div>
-            <div class="project-card-desc" style="max-width: 680px;">Led EdTech Group research for the Parent Association at UWCSEA during a sabbatical from the corporate world. Developed evidence-based strategies to meaningfully integrate AI into classroom pedagogy while simultaneously reducing harmful screen time — a tension rarely addressed together in edtech discourse. Research grounded in PISA findings on screen time and cognitive outcomes, and Singapore's Education Transformation 2030 framework. Output: a practical strategy framework for school leadership covering AI tool selection criteria, pedagogical guidelines for teachers, and screen-time guardrails by age group.</div>
+            <div class="project-card-desc" style="max-width: 680px;">Led the EdTech Group's research for the UWCSEA Parent Association during a sabbatical from the corporate world, working alongside the College's Educational Technology Working Group: a cross-section of 26 parents, 22 teachers, 21 students and two board members. Instead of debating more or less technology, the work set a clear test: every tool must earn its place by adding learning value over the analogue alternative. It also reframed AI as a question of thinking, not access. Grounded in PISA findings on screen time and Singapore's Education Transformation 2030 framework, the research produced <strong style="color:var(--text);">37 recommendations, distilled into eight priorities</strong> for school leadership. These include metacognition and visible thinking in assessment, age-appropriate scaffolding and screen-time guardrails, and usage baselines where data was missing.</div>
+            <a class="btn-secondary btn-link" style="font-size:0.66rem; padding:0.55rem 1.1rem; margin-top:0.2rem;" href="https://medium.com/@apoorva.aj/not-more-tech-not-less-tech-intentional-tech-6fa0f1c4f865" target="_blank" rel="noopener">Read the write-up on Medium →</a>
             <div class="project-tags" style="margin-top:1.2rem;">
               <span class="ptag">AI in Education</span><span class="ptag">Pedagogy</span><span class="ptag">PISA Research</span><span class="ptag">EdTech Strategy</span><span class="ptag">Singapore ET2030</span><span class="ptag">Policy Framework</span><span class="ptag">UWCSEA</span>
             </div>
@@ -1454,62 +1494,75 @@
 <div class="page" id="blogs">
   <div class="section">
     <div class="projects-header">
-      <div class="section-label">Writing · Published on DataDrivenInvestor</div>
+      <div class="section-label">Writing · Medium</div>
       <h2 class="page-title">Thoughts &amp;<br><span class="accent">Blogs</span></h2>
-      <p class="page-subtitle">Three articles published in DataDrivenInvestor on Medium — covering NLP research, the craft of data science, and embedding analytics inside large organisations.</p>
+      <p class="page-subtitle">Articles on Medium — from AI and technology policy in education to NLP research, the craft of data science, and embedding analytics inside large organisations.</p>
     </div>
 
-    <!-- Article 1: SentiPulse — Featured -->
-    <div class="blog-featured" onclick="window.open('https://medium.com/datadriveninvestor/sentipulse-from-news-to-numbers-24aaa7e9f5b5','_blank')" >
+    <!-- Article 1: Intentional Tech — Featured (latest) -->
+    <div class="blog-featured" onclick="window.open('https://medium.com/@apoorva.aj/not-more-tech-not-less-tech-intentional-tech-6fa0f1c4f865','_blank')" >
       <div>
-        <div class="blog-date">NLP · Deep Learning · Finance &nbsp;·&nbsp; Oct 2018</div>
-        <div class="blog-featured-title">SentiPulse — From News to Numbers</div>
-        <div class="blog-featured-excerpt">Can news sentiment predict next-day stock price movement? This article documents the research journey behind SentiPulse — a system that scores financial news using NLP and VADER, then feeds those scores into an LSTM model trained on tech giants like Apple, Google, and Facebook. The piece explores the efficient market hypothesis, why traditional time-series models miss knee-jerk market reactions, and what a first-generation model can — and cannot — get right. Topic modelling via LDA lets users tune the stop-word list with domain knowledge, making the system adaptable rather than static.</div>
-        <button class="btn-secondary" style="font-size:0.7rem; padding:0.7rem 1.5rem;" onclick="event.stopPropagation(); window.open('https://medium.com/datadriveninvestor/sentipulse-from-news-to-numbers-24aaa7e9f5b5','_blank')">Read on Medium →</button>
+        <div class="blog-date">AI in Education · EdTech Strategy · Policy &nbsp;·&nbsp; Oct 2026 &nbsp;·&nbsp; 3 min read</div>
+        <div class="blog-featured-title">Not More Tech, Not Less Tech: Intentional Tech</div>
+        <div class="blog-featured-excerpt">What should a school do about AI and screens: more technology, or less? Drawing on work with UWCSEA's Parent Association EdTech Group and the College's Educational Technology Working Group (26 parents, 22 teachers, 21 students and two board members), the article argues that this is the wrong question. A tool should earn its place by adding learning value over the analogue alternative, not just engagement, and with AI the real issue is thinking, not access. It explains how 37 recommendations were distilled into eight priorities, and ends with three lessons that apply well beyond schools: frame the problem before choosing the solution, design for the sceptic, and treat policy like a product.</div>
+        <button type="button" class="btn-secondary" style="font-size:0.7rem; padding:0.7rem 1.5rem;" onclick="event.stopPropagation(); window.open('https://medium.com/@apoorva.aj/not-more-tech-not-less-tech-intentional-tech-6fa0f1c4f865','_blank')">Read on Medium →</button>
       </div>
       <div class="blog-visual">
-        <svg class="data-wave" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-          <g transform="translate(10,110)">
-            <rect x="0"  y="0" width="8" height="-40"  fill="rgba(10,113,120,0.6)" class="wave-bar" style="animation-delay:0s"/>
-            <rect x="12" y="0" width="8" height="-80"  fill="rgba(10,113,120,0.5)" class="wave-bar" style="animation-delay:0.15s"/>
-            <rect x="24" y="0" width="8" height="-55"  fill="rgba(10,113,120,0.7)" class="wave-bar" style="animation-delay:0.3s"/>
-            <rect x="36" y="0" width="8" height="-90"  fill="rgba(10,113,120,0.4)" class="wave-bar" style="animation-delay:0.45s"/>
-            <rect x="48" y="0" width="8" height="-65"  fill="rgba(43,86,168,0.6)" class="wave-bar" style="animation-delay:0.6s"/>
-            <rect x="60" y="0" width="8" height="-100" fill="rgba(10,113,120,0.5)" class="wave-bar" style="animation-delay:0.75s"/>
-            <rect x="72" y="0" width="8" height="-45"  fill="rgba(10,113,120,0.7)" class="wave-bar" style="animation-delay:0.9s"/>
-            <rect x="84" y="0" width="8" height="-75"  fill="rgba(43,86,168,0.5)" class="wave-bar" style="animation-delay:1.05s"/>
-            <rect x="96" y="0" width="8" height="-60"  fill="rgba(10,113,120,0.6)" class="wave-bar" style="animation-delay:1.2s"/>
-          </g>
-          <text x="60" y="15" text-anchor="middle" font-family="monospace" font-size="7" fill="rgba(10,113,120,0.4)" letter-spacing="0.05em">NLP · LSTM</text>
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" style="width:78%; height:78%;" aria-hidden="true">
+          <line x1="60" y1="22" x2="60" y2="96" stroke="rgba(15,34,64,0.35)" stroke-width="1.4"/>
+          <path d="M44 96 H76" stroke="rgba(15,34,64,0.35)" stroke-width="1.4"/>
+          <line x1="24" y1="38" x2="96" y2="38" stroke="rgba(10,113,120,0.8)" stroke-width="1.6"/>
+          <circle cx="60" cy="38" r="3.2" fill="rgba(10,113,120,0.9)"/>
+          <path d="M24 38 L14 62 M24 38 L34 62" stroke="rgba(10,113,120,0.45)" stroke-width="1"/>
+          <path d="M12 62 Q24 72 36 62 Z" fill="rgba(10,113,120,0.12)" stroke="rgba(10,113,120,0.7)" stroke-width="1.2"/>
+          <path d="M96 38 L86 62 M96 38 L106 62" stroke="rgba(43,86,168,0.45)" stroke-width="1"/>
+          <path d="M84 62 Q96 72 108 62 Z" fill="rgba(43,86,168,0.12)" stroke="rgba(43,86,168,0.7)" stroke-width="1.2"/>
+          <text x="24" y="81" text-anchor="middle" font-family="Verdana, sans-serif" font-size="5.5" fill="rgba(10,113,120,0.85)">TECH</text>
+          <text x="96" y="81" text-anchor="middle" font-family="Verdana, sans-serif" font-size="5.5" fill="rgba(43,86,168,0.85)">LEARNING</text>
+          <text x="60" y="112" text-anchor="middle" font-family="Verdana, sans-serif" font-size="5.5" letter-spacing="0.08em" fill="rgba(15,34,64,0.45)">INTENTIONAL TECH</text>
         </svg>
       </div>
     </div>
 
-    <!-- Articles 2 & 3 as list items -->
+    <!-- Earlier articles -->
     <div class="blog-list">
 
-      <div class="blog-item" onclick="window.open('https://medium.com/datadriveninvestor/what-data-science-gurus-dont-tell-you-d4dbad89ed67','_blank')" >
+      <div class="blog-item" onclick="window.open('https://medium.com/datadriveninvestor/sentipulse-from-news-to-numbers-24aaa7e9f5b5','_blank')" >
         <div class="blog-item-num">02</div>
         <div>
+          <div class="blog-item-title">SentiPulse — From News to Numbers</div>
+          <div class="blog-item-meta">NLP · Deep Learning · Finance · DataDrivenInvestor · Oct 2018</div>
+          <div style="font-size:0.82rem; color:var(--text-dim); line-height:1.65; margin-top:0.5rem; max-width:680px;">
+            Can news sentiment predict next-day stock price movement? This article documents the research behind SentiPulse, a system that scores financial news using NLP and VADER, then feeds those scores into an LSTM model trained on tech giants such as Apple, Google and Facebook. It explores the efficient market hypothesis, why traditional time-series models miss knee-jerk market reactions, and what a first-generation model can and cannot get right.
+          </div>
+          <button type="button" class="btn-secondary" style="font-size:0.65rem; padding:0.5rem 1.1rem; margin-top:0.9rem; display:inline-block;" onclick="event.stopPropagation(); window.open('https://medium.com/datadriveninvestor/sentipulse-from-news-to-numbers-24aaa7e9f5b5','_blank')">Read on Medium →</button>
+        </div>
+        <div class="blog-read-time"></div>
+      </div>
+
+
+      <div class="blog-item" onclick="window.open('https://medium.com/datadriveninvestor/what-data-science-gurus-dont-tell-you-d4dbad89ed67','_blank')" >
+        <div class="blog-item-num">03</div>
+        <div>
           <div class="blog-item-title">What Data Science Gurus Don't Tell You</div>
-          <div class="blog-item-meta">Data Science · Healthcare Analytics · Oct 2018</div>
+          <div class="blog-item-meta">Data Science · Healthcare Analytics · DataDrivenInvestor · Oct 2018</div>
           <div style="font-size:0.82rem; color:var(--text-dim); line-height:1.65; margin-top:0.5rem; max-width:680px;">
             A candid pushback on the oversimplification of data science in popular tutorials and courses. The article argues that real data science starts with a messy, ill-defined business problem — not a clean dataset. Illustrated through a hospital hand-hygiene case study examining its link to hospital-acquired infections, the piece makes the case that problem framing, domain expertise, and stakeholder trust matter as much as algorithmic skill.
           </div>
-          <button class="btn-secondary" style="font-size:0.65rem; padding:0.5rem 1.1rem; margin-top:0.9rem; display:inline-block;" onclick="event.stopPropagation(); window.open('https://medium.com/datadriveninvestor/what-data-science-gurus-dont-tell-you-d4dbad89ed67','_blank')">Read on Medium →</button>
+          <button type="button" class="btn-secondary" style="font-size:0.65rem; padding:0.5rem 1.1rem; margin-top:0.9rem; display:inline-block;" onclick="event.stopPropagation(); window.open('https://medium.com/datadriveninvestor/what-data-science-gurus-dont-tell-you-d4dbad89ed67','_blank')">Read on Medium →</button>
         </div>
         <div class="blog-read-time">3 min read</div>
       </div>
 
       <div class="blog-item" onclick="window.open('https://medium.com/datadriveninvestor/how-to-make-the-elephant-sing-7ad2a89f0aaa','_blank')" >
-        <div class="blog-item-num">03</div>
+        <div class="blog-item-num">04</div>
         <div>
           <div class="blog-item-title">How to Make the Elephant Sing</div>
-          <div class="blog-item-meta">Enterprise Analytics · Change Management · Organisational Strategy</div>
+          <div class="blog-item-meta">Enterprise Analytics · Change Management · DataDrivenInvestor</div>
           <div style="font-size:0.82rem; color:var(--text-dim); line-height:1.65; margin-top:0.5rem; max-width:680px;">
             Getting large enterprises to genuinely embrace data-driven decision-making is rarely a technology problem — it's a cultural one. This piece uses the metaphor of coaxing an elephant to sing as a frame for the challenge of embedding analytics inside slow-moving, risk-averse organisations. It draws on first-hand experience across healthcare, insurance, and enterprise IT to examine what actually shifts behaviour: executive sponsorship, small visible wins, and designing for the sceptic rather than the convert.
           </div>
-          <button class="btn-secondary" style="font-size:0.65rem; padding:0.5rem 1.1rem; margin-top:0.9rem; display:inline-block;" onclick="event.stopPropagation(); window.open('https://medium.com/datadriveninvestor/how-to-make-the-elephant-sing-7ad2a89f0aaa','_blank')">Read on Medium →</button>
+          <button type="button" class="btn-secondary" style="font-size:0.65rem; padding:0.5rem 1.1rem; margin-top:0.9rem; display:inline-block;" onclick="event.stopPropagation(); window.open('https://medium.com/datadriveninvestor/how-to-make-the-elephant-sing-7ad2a89f0aaa','_blank')">Read on Medium →</button>
         </div>
         <div class="blog-read-time">5 min read</div>
       </div>
@@ -1519,10 +1572,10 @@
     <!-- Medium profile CTA -->
     <div style="margin-top:3rem; padding-top:2rem; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
       <div>
-        <div style="font-family:var(--mono); font-size:0.68rem; color:var(--text-dimmer); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:0.4rem;">Published in</div>
-        <div style="font-family:var(--serif); font-size:1.1rem;">DataDrivenInvestor on Medium</div>
+        <div style="font-family:var(--mono); font-size:0.68rem; color:var(--text-dimmer); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:0.4rem;">Published on</div>
+        <div style="font-family:var(--serif); font-size:1.1rem;">Medium · including DataDrivenInvestor</div>
       </div>
-      <button class="btn-secondary" onclick="window.open('https://medium.com/@appujo','_blank')">View Medium Profile →</button>
+      <button type="button" class="btn-secondary" onclick="window.open('https://medium.com/@apoorva.aj','_blank')">View Medium Profile →</button>
     </div>
   </div>
 </div>
@@ -1584,12 +1637,39 @@
         <div class="contact-sub">Open to AI solution consulting, presales and product management roles — and to conversations about applied AI in healthcare and financial services.</div>
       </div>
       <div class="contact-actions">
-        <button class="btn-primary" onclick="window.open('https://www.linkedin.com/in/apoorva-joshi','_blank','noopener')">LinkedIn →</button>
+        <button type="button" class="btn-primary" onclick="window.open('https://www.linkedin.com/in/apoorva-joshi','_blank','noopener')">LinkedIn →</button>
         <a class="btn-secondary btn-link" href="Apoorva_Joshi_Resume.pdf" target="_blank" rel="noopener" onclick="trackResume()">Resume (PDF) ↓</a>
       </div>
     </div>
   </div>
 </div>
+
+<!-- ===== Request Demo form (sent via Web3Forms, protected by hCaptcha) ===== -->
+<dialog id="demo-dialog" class="demo-dialog" aria-labelledby="demo-title">
+  <button type="button" class="demo-x" id="demo-close" aria-label="Close">×</button>
+  <div class="demo-kicker">Request a demo</div>
+  <h3 id="demo-title" class="demo-title"><span id="demo-project-label">Project</span></h3>
+  <form id="demo-form" novalidate>
+    <input type="hidden" name="project" value="">
+    <input type="hidden" name="subject" value="Demo request">
+    <input type="hidden" name="from_name" value="Portfolio demo request">
+    <input type="checkbox" name="botcheck" class="demo-hp" tabindex="-1" aria-hidden="true">
+    <div class="demo-grid">
+      <label>Your name <span>*</span><input type="text" name="name" required autocomplete="name"></label>
+      <label>Work email <span>*</span><input type="email" name="email" required autocomplete="email"></label>
+      <label>Company and role<input type="text" name="company_role" autocomplete="organization-title"></label>
+      <label>Preferred dates and times<input type="text" name="preferred_times" placeholder="e.g. Tue or Wed afternoon, SGT"></label>
+    </div>
+    <label>What would you like to see?<textarea name="message" rows="3" placeholder="Optional"></textarea></label>
+    <div class="h-captcha" data-captcha="true"></div>
+    <div id="demo-status" class="demo-status" role="status" aria-live="polite"></div>
+    <button type="submit" id="demo-send" class="demo-btn">Send request</button>
+  </form>
+  <div id="demo-done" class="demo-done" hidden>
+    <p><strong>Thank you, your request has been sent.</strong><br>Apoorva will reply by email to arrange a time.</p>
+    <button type="button" id="demo-done-close" class="btn-secondary">Close</button>
+  </div>
+</dialog>
 
 <footer>
   <span>© 2026 AJ Portfolio · All rights reserved</span>
@@ -1615,6 +1695,122 @@
   }
 
   document.querySelectorAll('.skill-bar-fill').forEach(b => b.style.setProperty('--pct', b.dataset.pct + '%'));
+
+
+  // ===== Request Demo buttons + form =====
+  // A button is added automatically to every card in "Recent Work".
+  // Add data-demo="soon" to a card to show the button greyed out.
+  var DEMO_FORM_KEY = '71a850cc-6b7c-4b8a-8ce9-6ee2019380e0'; // paste the Web3Forms access key here
+  var DEMO_EMAIL = ['apoorva.aj', 'gmail.com'].join('@'); // fallback only; not plain text in the page
+  var demoFormReady = DEMO_FORM_KEY.indexOf('YOUR_') !== 0;
+
+  function gcEvent(path, title) {
+    var gc = window.goatcounter;
+    if (gc && typeof gc.count === 'function') gc.count({ path: path, title: title, event: true });
+  }
+  function slug(t) { return t.toLowerCase().replace(/[^a-z0-9]+/g, '-'); }
+  function mailtoFor(name) {
+    var body = 'Hi Apoorva,\n\nI saw ' + name + ' on your portfolio and would like to see a demo.\n\n' +
+               'Name:\nCompany and role:\nPreferred dates and times (with time zone):\n\nThanks,\n';
+    return 'mailto:' + DEMO_EMAIL + '?subject=' + encodeURIComponent('Demo request: ' + name) + '&body=' + encodeURIComponent(body);
+  }
+
+  var demoDialog = document.getElementById('demo-dialog');
+  var demoForm = document.getElementById('demo-form');
+  var demoStatus = document.getElementById('demo-status');
+
+  function openDemo(name) {
+    demoForm.reset();
+    demoForm.hidden = false;
+    document.getElementById('demo-done').hidden = true;
+    demoStatus.textContent = '';
+    demoStatus.className = 'demo-status';
+    document.getElementById('demo-project-label').textContent = name;
+    demoForm.elements['project'].value = name;
+    demoForm.elements['subject'].value = 'Demo request: ' + name;
+    if (window.hcaptcha) { try { window.hcaptcha.reset(); } catch (e) {} }
+    if (typeof demoDialog.showModal === 'function') demoDialog.showModal(); else demoDialog.setAttribute('open', '');
+    setTimeout(function () { demoForm.elements['name'].focus(); }, 50);
+  }
+  function closeDemo() {
+    if (typeof demoDialog.close === 'function') { if (demoDialog.open) demoDialog.close(); }
+    else demoDialog.removeAttribute('open');
+  }
+  document.getElementById('demo-close').addEventListener('click', closeDemo);
+  document.getElementById('demo-done-close').addEventListener('click', closeDemo);
+  demoDialog.addEventListener('click', function (e) { if (e.target === demoDialog) closeDemo(); });
+
+  demoForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = demoForm.elements['project'].value;
+    ['name', 'email'].forEach(function (f) { demoForm.elements[f].value = demoForm.elements[f].value.trim(); });
+    if (!demoForm.reportValidity()) return; // name and a valid email are required
+    var captcha = demoForm.querySelector('textarea[name=h-captcha-response]');
+    if (!captcha || !captcha.value) {
+      if (!demoForm.querySelector('.h-captcha iframe')) {
+        // The human check never loaded (often an ad blocker or a strict work network)
+        demoStatus.innerHTML = 'The "I am human" check couldn\'t load in this browser, often because of an ad blocker. Please <a href="' + mailtoFor(name) + '">email Apoorva directly</a> instead.';
+      } else {
+        demoStatus.textContent = 'Please tick the "I am human" check before sending.';
+      }
+      demoStatus.className = 'demo-status error';
+      return;
+    }
+    var data = Object.fromEntries(new FormData(demoForm));
+    data.access_key = DEMO_FORM_KEY;
+    var send = document.getElementById('demo-send');
+    send.disabled = true; send.textContent = 'Sending…';
+    demoStatus.textContent = ''; demoStatus.className = 'demo-status';
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (res && res.success) {
+          demoForm.hidden = true;
+          document.getElementById('demo-done').hidden = false;
+          gcEvent('demo-request-' + slug(name), 'Demo request sent: ' + name);
+        } else {
+          throw new Error((res && (res.body && res.body.message || res.message)) || 'unknown error');
+        }
+      })
+      .catch(function () {
+        demoStatus.innerHTML = 'Sorry, the request could not be sent. Please try again, or <a href="' + mailtoFor(name) + '">email Apoorva directly</a>.';
+        demoStatus.className = 'demo-status error';
+        if (window.hcaptcha) { try { window.hcaptcha.reset(); } catch (e) {} }
+      })
+      .then(function () { send.disabled = false; send.textContent = 'Send request'; });
+  });
+
+  document.querySelectorAll('.recent-grid .project-card').forEach(function (card) {
+    var title = card.querySelector('.project-card-title');
+    var name = card.dataset.project || (title ? title.textContent.split(' — ')[0].trim() : 'this project');
+    var column = card.querySelector('.recent-inner > div') || card;
+    var row = document.createElement('div');
+    row.className = 'demo-row';
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'demo-btn';
+    if (card.dataset.demo === 'soon') {
+      btn.textContent = 'Request Demo';
+      btn.disabled = true;
+      btn.title = 'Demo coming soon';
+      var note = document.createElement('span');
+      note.className = 'demo-note';
+      note.textContent = 'Demo coming soon';
+      row.appendChild(btn); row.appendChild(note);
+    } else {
+      btn.textContent = 'Request Demo →';
+      btn.addEventListener('click', function () {
+        if (demoFormReady) { openDemo(name); gcEvent('demo-form-opened-' + slug(name), 'Demo form opened: ' + name); }
+        else { gcEvent('demo-request-' + slug(name), 'Demo request (email): ' + name); window.location.href = mailtoFor(name); }
+      });
+      row.appendChild(btn);
+    }
+    column.appendChild(row);
+  });
 
   // Skill bar animation
   function animateBars() {
@@ -1653,5 +1849,6 @@
 </script>
 <script data-goatcounter="https://apoorvaaj.goatcounter.com/count"
         async src="https://gc.zgo.at/count.js"></script>
+<script src="https://web3forms.com/client/script.js" async defer></script>
 </body>
 </html>
