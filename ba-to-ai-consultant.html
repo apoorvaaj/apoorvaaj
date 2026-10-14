@@ -62,7 +62,7 @@
   .lede { font-family: var(--serif); font-size: 1.45rem; line-height: 1.5; color: var(--text); margin-bottom: 1.6rem; }
   p { font-size: 1rem; line-height: 1.85; color: var(--text-dim); margin-bottom: 1.35rem; }
   p strong, li strong, td strong { color: var(--text); }
-  h2 { font-family: var(--serif); font-weight: 500; font-size: 1.75rem; line-height: 1.25; margin: 3.2rem 0 1.1rem; color: var(--text); }
+  h2 { font-family: var(--serif); font-weight: 500; font-size: 1.75rem; line-height: 1.25; margin: 3rem 0 1.1rem; color: var(--text); }
   h3 { font-family: var(--sans); font-size: 1rem; font-weight: bold; color: var(--text); margin: 2rem 0 0.7rem; }
   ul { list-style: none; margin: 0 0 1.6rem; }
   li { position: relative; padding-left: 1.5rem; margin-bottom: 0.95rem; font-size: 1rem; line-height: 1.8; color: var(--text-dim); }
@@ -102,10 +102,11 @@
 
   /* Tables */
   .table-wrap { overflow-x: auto; margin: 1.6rem 0 2rem; border: 1px solid var(--border); background: var(--surface); }
-  table { width: 100%; border-collapse: collapse; font-size: 0.86rem; min-width: 560px; }
-  th { text-align: left; font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; background: var(--text); padding: 0.75rem 0.9rem; }
-  td { padding: 0.8rem 0.9rem; border-top: 1px solid var(--border); color: var(--text-dim); line-height: 1.6; vertical-align: top; }
-  tr:nth-child(even) td { background: rgba(10,113,120,0.035); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; line-height: 1.55; min-width: 560px; }
+  th { text-align: left; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
+       background: var(--surface2); padding: 0.75rem 0.9rem; border-bottom: 1px solid var(--border); }
+  td { padding: 0.75rem 0.9rem; border-bottom: 1px solid var(--border); color: var(--text-dim); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
   td:first-child { color: var(--text); font-weight: bold; width: 28%; }
 
   /* Role cards */
@@ -127,7 +128,6 @@
   .steps li::before { counter-increment: s; content: counter(s); transform: none; width: 1.5rem; height: 1.5rem; top: 0.25rem; left: 0;
                       background: var(--accent); color: #fff; font-size: 0.72rem; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
 
-  .note { font-size: 0.86rem; color: var(--text-dimmer); border-top: 1px solid var(--border); padding-top: 1rem; margin-top: 2.4rem; }
 
   .cta { margin: 3.2rem 0 0; padding: 2rem; background: var(--surface); border: 1px solid var(--border); }
   .cta h3 { font-family: var(--serif); font-weight: 500; font-size: 1.45rem; margin: 0 0 0.5rem; }
@@ -140,7 +140,7 @@
   .btn.secondary { color: var(--text-dim); border-color: var(--border); background: transparent; }
   .btn.secondary:hover { color: var(--accent); border-color: var(--accent); }
 
-  footer { border-top: 1px solid var(--border); padding: 1.5rem 4rem; display: flex; justify-content: space-between; font-size: 0.68rem;
+  footer { border-top: 1px solid var(--border); padding: 1.5rem 4rem; display: flex; justify-content: center; font-size: 0.68rem;
            color: var(--text-dimmer); letter-spacing: 0.06em; }
 
   @media (max-width: 768px) {
@@ -148,11 +148,11 @@
     .nav-logo span { display: none; }
     .nav-links { gap: 0.75rem; }
     .nav-links a { font-size: 0.62rem; letter-spacing: 0.04em; white-space: nowrap; }
-    article { padding: 2.6rem 1rem 2rem; }
+    article { padding: 2.6rem 1.25rem 2rem; }
     .lede { font-size: 1.25rem; }
-    h2 { font-size: 1.5rem; margin-top: 2.6rem; }
-    .pull { padding: 1.2rem; }
-    .pull p { font-size: 1.22rem; }
+    h2 { font-size: 1.5rem; margin-top: 2.4rem; }
+    .pull { padding: 1.2rem 1.2rem; }
+    .pull p { font-size: 1.25rem; }
     .role { padding: 1.2rem 1.1rem 0.3rem; }
     .cta { padding: 1.4rem 1.2rem; }
     .btn { width: 100%; }
@@ -314,7 +314,7 @@
     <li><strong>Explain complex technology clearly</strong> to audiences who range from engineers to executives.</li>
   </ul>
   <p>Two of those five are new since my time at TIBCO, and both are things I have spent the past year doing.</p>
-  <p><strong>Building demos myself.</strong> Ten years ago a presales consultant could design a solution and hand the demo to a specialist. Today the expectation is that you can stand up a working prototype. I built three, each solving a different problem with a different AI pattern. Attic is an AI agent that tidies a Gmail inbox. BeatKeeper is a multi-agent system that runs a weekly content campaign for busy professionals. MealPartner is a RAG assistant on WhatsApp. I built them with AI coding tools, but with the discipline of a BA and a project manager: a written specification first, small test-first increments, and decisions recorded as I went. I wrote about that method in <a href="vibe-coding.html">Agile, Waterfall and the Vibe</a>.</p>
+  <p><strong>Building demos myself.</strong> Ten years ago a presales consultant could design a solution and hand the demo to a specialist. Today the expectation is that you can stand up a working prototype. I built three, each solving a different problem with a different AI pattern. Attic is an AI agent that tidies a Gmail inbox. BeatKeeper is a multi-agent system that runs a weekly content campaign for busy professionals. MealPartner is a RAG meal assistant on WhatsApp for university students. I built them with AI coding tools, but with the discipline of a BA and a project manager: a written specification first, small test-first increments, and decisions recorded as I went. I wrote about that method in <a href="vibe-coding.html">Agile, Waterfall and the Vibe</a>.</p>
   <p><strong>Responsible AI by design.</strong> Every one of my builds treats trust as a requirement, not a feature. Attic cannot delete email, and its safety rules are enforced by the server whatever the AI suggests. BeatKeeper will not let a user approve any factual claim without a linked source, and it never posts on anyone's behalf. MealPartner never lets the language model write recipe content, which limits both hallucination and prompt injection. These are exactly the conversations an AI presales consultant has with a bank, an insurer or a hospital: what can go wrong, and how do we prove it won't.</p>
 
   <div class="pull"><p>The customer's question hasn't changed. "Will this work for us?" now comes with a second one: "and can we trust it?"</p></div>
@@ -347,7 +347,7 @@
         <tr><td>Optimisation</td><td>School volunteering</td><td>Seated around 900 guests at 90 tables using friendship groups found with Union-Find, in an afternoon (<a href="school-dinner-seating.html">article</a>)</td></tr>
         <tr><td>LLM agents and guardrails</td><td>Attic</td><td>Structured AI proposals re-checked against fixed server-side rules; nothing changes without user approval</td></tr>
         <tr><td>Multi-agent orchestration and evaluation</td><td>BeatKeeper</td><td>Five-layer agent pipeline, citation-enforced output, golden-dataset evals, versioned prompts</td></tr>
-        <tr><td>RAG and conversational design</td><td>MealPartner</td><td>Hybrid retrieval with confidence tiers, conversation state machine, local LLM, swap-ready architecture</td></tr>
+        <tr><td>RAG and conversational design</td><td>MealPartner, for university students</td><td>Hybrid retrieval with confidence tiers, conversation state machine, local LLM, swap-ready architecture</td></tr>
         <tr><td>AI-assisted development with SDLC discipline</td><td>All three builds</td><td>Spec-first, test-first slices; risk-tiered process (<a href="vibe-coding.html">article</a>)</td></tr>
         <tr><td>Stakeholder research and policy</td><td>School EdTech working group</td><td>37 recommendations distilled into eight priorities for leadership</td></tr>
         <tr><td>Writing and data storytelling</td><td>This blog and Medium</td><td>Articles on AI policy, machine learning practice, data quality and data storytelling</td></tr>
@@ -441,8 +441,7 @@
 </article>
 
 <footer>
-  <span>© 2026 Apoorva Joshi</span>
-  <span>Singapore</span>
+  <span>© 2026 Apoorva Joshi · Singapore</span>
 </footer>
 
 <script>

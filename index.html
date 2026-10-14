@@ -219,9 +219,8 @@
     animation: slideUp 0.7s 0.5s ease forwards;
   }
 
-  /* Notes under the intro (career-case and career-break articles) */
+  /* Career-break note under the intro (links to the Seven Years article) */
   .home-subtitle.has-note { margin-bottom: 1rem; }
-  .home-notes { display: flex; flex-direction: column; align-items: flex-start; gap: 0.65rem; margin-bottom: 2.2rem; }
   .gap-note {
     display: inline-flex;
     align-items: baseline;
@@ -236,9 +235,6 @@
     opacity: 0;
     animation: slideUp 0.7s 0.58s ease forwards;
   }
-  .home-notes .gap-note { margin-bottom: 0; }
-  .gap-note.case-note { background: rgba(10,113,120,0.06); border-left-width: 3px; padding: 0.45rem 0.9rem 0.45rem 0.8rem; }
-  .gap-note.case-note b { font-weight: bold; }
   .gap-note b { font-weight: normal; color: var(--text); }
   .gap-note span { color: var(--accent); white-space: nowrap; transition: transform 0.2s; display: inline-block; }
   .gap-note:hover span { transform: translateX(3px); }
@@ -805,7 +801,7 @@
   .blog-list { display: flex; flex-direction: column; gap: 0; }
   .blog-item {
     display: grid;
-    grid-template-columns: 80px 1fr auto;
+    grid-template-columns: 1fr auto;
     gap: 1.5rem;
     align-items: start;
     padding: 1.5rem 0;
@@ -814,12 +810,6 @@
     transition: background 0.2s;
   }
   .blog-item:hover { background: var(--surface); }
-  .blog-item-num {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    color: var(--text-dimmer);
-    padding-top: 0.2rem;
-  }
   .blog-item-title {
     font-family: var(--serif);
     font-size: 1.1rem;
@@ -956,7 +946,7 @@
     border-top: 1px solid var(--border);
     padding: 1.5rem 4rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     font-family: var(--mono);
     font-size: 0.65rem;
@@ -979,7 +969,7 @@
     .blog-visual { display: none; }
     .contact-strip { grid-template-columns: 1fr; }
     footer { flex-direction: column; gap: 0.5rem; text-align: center; }
-    .blog-item { grid-template-columns: 50px 1fr; }
+    .blog-item { grid-template-columns: 1fr; }
     .blog-read-time { display: none; }
   }
 
@@ -1052,7 +1042,6 @@
     .home-subtitle { font-size: 1rem; margin: 1.2rem 0 1.8rem; }
     .home-subtitle.has-note { margin-bottom: 0.9rem; }
     .gap-note { font-size: 0.78rem; margin-bottom: 1.6rem; }
-    .home-notes { margin-bottom: 1.6rem; }
     .home-tags { margin-bottom: 2rem; }
     .home-ctas { flex-direction: column; align-items: stretch; }
     .home-ctas button { width: 100%; }
@@ -1094,7 +1083,6 @@
     .personal-title { font-size: 1.5rem; }
     .personal-cta { display: block; text-align: center; }
     .blog-item { grid-template-columns: 1fr; gap: 0.3rem; }
-    .blog-item-num { display: none; }
 
     /* About */
     .about-grid { gap: 2.5rem; margin-bottom: 3rem; }
@@ -1215,6 +1203,9 @@
         </div>
         <div class="domain-tags" style="margin-top:1.5rem;">
           <span class="tag" style="font-size:0.65rem;">Python</span>
+          <span class="tag" style="font-size:0.65rem;">Claude API</span>
+          <span class="tag" style="font-size:0.65rem;">RAG</span>
+          <span class="tag" style="font-size:0.65rem;">Node.js</span>
           <span class="tag" style="font-size:0.65rem;">R</span>
           <span class="tag" style="font-size:0.65rem;">Keras / TF</span>
           <span class="tag" style="font-size:0.65rem;">SQL</span>
@@ -1244,17 +1235,23 @@
         <!-- Skills -->
         <div class="section-label">Core Skills</div>
         <div class="skill-bar-group">
-          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Machine &amp; Deep Learning</span><span class="skill-bar-pct">92%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-pct="92"></div></div></div>
-          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Python · R · Data Science</span><span class="skill-bar-pct">90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-pct="90"></div></div></div>
-          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Business Analysis</span><span class="skill-bar-pct">95%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-pct="95"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Business Analysis &amp; Requirements</span><span class="skill-bar-pct">95%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-pct="95"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Solution Consulting &amp; Presales</span><span class="skill-bar-pct">87%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-pct="87"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">AI Agents · RAG · LLM Evaluation</span><span class="skill-bar-pct">85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-pct="85"></div></div></div>
           <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Healthcare IT / HL7 / EHR</span><span class="skill-bar-pct">88%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-pct="88"></div></div></div>
-          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Data Visualisation</span><span class="skill-bar-pct">85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-pct="85"></div></div></div>
-          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Solution Consultancy</span><span class="skill-bar-pct">87%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-pct="87"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Machine Learning &amp; Data Science</span><span class="skill-bar-pct">90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-pct="90"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Data Visualisation &amp; Storytelling</span><span class="skill-bar-pct">85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-pct="85"></div></div></div>
         </div>
 
         <!-- Experience Timeline -->
         <div class="section-label" style="margin-top:1rem;">Experience</div>
         <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-date">2019 – 2026</div>
+            <div class="timeline-title">Career Break · Community Leadership &amp; AI Builds</div>
+            <div class="timeline-org">UWCSEA Parent Association · Independent projects</div>
+            <div class="timeline-desc">Led the Parent Association EdTech Group's research on AI and screen time with the college's Educational Technology Working Group, distilling 37 recommendations into eight priorities for school leadership. Built a check-in page for 1,000+ families and an algorithm that seated around 900 dinner guests. Designed and built three AI products: Attic, a guardrailed Gmail agent; BeatKeeper, a multi-agent content system with golden-dataset evals; and MealPartner, a RAG assistant for university students. <a href="#projects" onclick="showPage('projects');return false;">See the projects →</a> · <a href="seven-years.html">Read why →</a></div>
+          </div>
           <div class="timeline-item">
             <div class="timeline-date">Oct 2017 – Dec 2018</div>
             <div class="timeline-title">Data Analyst (SMU Scholar)</div>
@@ -1326,7 +1323,7 @@
 
             <div class="story-block">
               <div class="story-label">The problem</div>
-              <p>Students short on time and money often don't know what to cook with what they already have. Recipe apps are built for browsing, not quick decisions. A general-purpose chatbot can invent recipes that don't work with a student's limited equipment, such as a rice cooker, an air fryer and a blender.</p>
+              <p>University students short on time and money often don't know what to cook with what they already have. Recipe apps are built for browsing, not quick decisions. A general-purpose chatbot can invent recipes that don't work with a student's limited equipment, such as a rice cooker, an air fryer and a blender.</p>
             </div>
 
             <div class="story-block">
@@ -1596,7 +1593,6 @@
     <div class="blog-list">
 
       <div class="blog-item" onclick="window.location.href='school-dinner-seating.html'" >
-        <div class="blog-item-num">02</div>
         <div>
           <div class="blog-item-title">I Used an Algorithm to Seat 900 People at a School Dinner. Here's What Happened</div>
           <div class="blog-item-meta">From my blog · School volunteering · Oct 2026</div>
@@ -1609,7 +1605,6 @@
       </div>
 
       <div class="blog-item" onclick="window.location.href='seven-years.html'" >
-        <div class="blog-item-num">03</div>
         <div>
           <div class="blog-item-title">Seven Years, Well Spent: Why I Stepped Away, and What I Bring Back</div>
           <div class="blog-item-meta">From my blog · Personal · Oct 2026</div>
@@ -1622,7 +1617,6 @@
       </div>
 
       <div class="blog-item" onclick="window.open('https://medium.com/@apoorva.aj/storytelling-with-data-lessons-from-a-magical-broom-de0cf412793','_blank')" >
-        <div class="blog-item-num">04</div>
         <div>
           <div class="blog-item-title">Storytelling with Data: Lessons from a Magical Broom</div>
           <div class="blog-item-meta">Data Storytelling · Communication · Oct 2026</div>
@@ -1635,7 +1629,6 @@
       </div>
 
       <div class="blog-item" onclick="window.open('https://medium.com/@apoorva.aj/why-spreadsheet-is-still-my-favorite-data-analysis-tool-e269ff95689b','_blank')" >
-        <div class="blog-item-num">05</div>
         <div>
           <div class="blog-item-title">Why Spreadsheet Is Still My Favourite Data Analysis Tool</div>
           <div class="blog-item-meta">Data Analysis · Tools · AI · Oct 2026</div>
@@ -1648,7 +1641,6 @@
       </div>
 
       <div class="blog-item" onclick="window.open('https://medium.com/@apoorva.aj/data-preprocessing-pitfalls-where-good-models-go-wrong-8f9b3c3e5e15','_blank')" >
-        <div class="blog-item-num">06</div>
         <div>
           <div class="blog-item-title">Data Preprocessing Pitfalls: Where Good Models Go Wrong</div>
           <div class="blog-item-meta">Machine Learning · Data Quality · Oct 2026</div>
@@ -1661,7 +1653,6 @@
       </div>
 
       <div class="blog-item" onclick="window.open('https://medium.com/@apoorva.aj/optimization-v-s-machine-learning-c403e6d08a59','_blank')" >
-        <div class="blog-item-num">07</div>
         <div>
           <div class="blog-item-title">Optimization vs Machine Learning: Same Math, Different Worries</div>
           <div class="blog-item-meta">Machine Learning · Optimization · Oct 2026</div>
@@ -1674,7 +1665,6 @@
       </div>
 
       <div class="blog-item" onclick="window.open('https://medium.com/datadriveninvestor/sentipulse-from-news-to-numbers-24aaa7e9f5b5','_blank')" >
-        <div class="blog-item-num">08</div>
         <div>
           <div class="blog-item-title">SentiPulse — From News to Numbers</div>
           <div class="blog-item-meta">NLP · Deep Learning · Finance · DataDrivenInvestor · Oct 2018</div>
@@ -1688,7 +1678,6 @@
 
 
       <div class="blog-item" onclick="window.open('https://medium.com/datadriveninvestor/what-data-science-gurus-dont-tell-you-d4dbad89ed67','_blank')" >
-        <div class="blog-item-num">09</div>
         <div>
           <div class="blog-item-title">What Data Science Gurus Don't Tell You</div>
           <div class="blog-item-meta">Data Science · Healthcare Analytics · DataDrivenInvestor · Oct 2018</div>
@@ -1701,7 +1690,6 @@
       </div>
 
       <div class="blog-item" onclick="window.open('https://medium.com/datadriveninvestor/how-to-make-the-elephant-sing-7ad2a89f0aaa','_blank')" >
-        <div class="blog-item-num">10</div>
         <div>
           <div class="blog-item-title">How to Make the Elephant Sing</div>
           <div class="blog-item-meta">Enterprise Analytics · Change Management · DataDrivenInvestor</div>
@@ -1820,8 +1808,7 @@
 </div>
 
 <footer>
-  <span>© 2026 AJ Portfolio · All rights reserved</span>
-  <span>Built with precision · Singapore</span>
+  <span>© 2026 Apoorva Joshi · Singapore</span>
 </footer>
 
 <script>

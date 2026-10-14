@@ -37,15 +37,21 @@
         padding: 1.1rem 4rem; background: rgba(243,246,250,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
   .nav-logo { font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); text-decoration: none; }
   .nav-logo span { color: var(--text-dim); }
-  .nav-back { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; }
-  .nav-back:hover { color: var(--accent); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; margin: 0; }
+  .nav-links li { padding: 0; margin: 0; font-size: inherit; line-height: inherit; }
+  .nav-links li::before { display: none; }
+  .nav-links a { position: relative; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.25s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+  .nav-links a.active { color: var(--accent); }
 
   article { max-width: 760px; margin: 0 auto; padding: 4.5rem 1.5rem 3rem; }
   .kicker { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); font-weight: bold;
             display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
   .kicker::before { content: ''; width: 32px; height: 1px; background: var(--accent); }
   .kicker .dim { color: var(--text-dimmer); font-weight: normal; }
-  h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(2.2rem, 5.5vw, 3.3rem); line-height: 1.12; margin: 1.1rem 0 1.6rem; }
+  h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(2.1rem, 5.3vw, 3.2rem); line-height: 1.12; margin: 1.1rem 0 1.6rem; }
   h1 em { color: var(--accent); }
   .byline { display: flex; align-items: center; gap: 0.9rem; padding-bottom: 2rem; margin-bottom: 2.4rem; border-bottom: 1px solid var(--border); }
   .avatar { width: 46px; height: 46px; border-radius: 10px; background: var(--accent); color: #fff; font-family: var(--serif); font-size: 1.15rem;
@@ -69,7 +75,7 @@
   code { font-family: Menlo, Consolas, monospace; font-size: 0.86em; background: var(--surface2); padding: 0.05rem 0.35rem; border-radius: 3px; color: var(--text); }
 
   .pull { margin: 2.6rem 0; padding: 1.6rem 1.8rem; border-left: 3px solid var(--accent); background: var(--surface); }
-  .pull p { font-family: var(--serif); font-size: 1.5rem; line-height: 1.45; color: var(--text); margin: 0; }
+  .pull p { font-family: var(--serif); font-size: 1.45rem; line-height: 1.45; color: var(--text); margin: 0; }
 
   .table-wrap { overflow-x: auto; margin: 1.6rem 0 2rem; border: 1px solid var(--border); background: var(--surface); }
   table { width: 100%; border-collapse: collapse; font-size: 0.82rem; line-height: 1.55; min-width: 560px; }
@@ -97,12 +103,14 @@
   .btn.secondary { color: var(--text-dim); border-color: var(--border); background: transparent; }
   .btn.secondary:hover { color: var(--accent); border-color: var(--accent); }
 
-  footer { border-top: 1px solid var(--border); padding: 1.5rem 4rem; display: flex; justify-content: space-between; font-size: 0.68rem;
+  footer { border-top: 1px solid var(--border); padding: 1.5rem 4rem; display: flex; justify-content: center; font-size: 0.68rem;
            color: var(--text-dimmer); letter-spacing: 0.06em; }
 
   @media (max-width: 768px) {
     nav { padding: 0.9rem 1.25rem; }
     .nav-logo span { display: none; }
+    .nav-links { gap: 0.75rem; }
+    .nav-links a { font-size: 0.62rem; letter-spacing: 0.04em; white-space: nowrap; }
     article { padding: 2.6rem 1.25rem 2rem; }
     .lede { font-size: 1.25rem; }
     h2 { font-size: 1.5rem; margin-top: 2.4rem; }
@@ -112,6 +120,11 @@
     .cta { padding: 1.4rem 1.2rem; }
     .btn { width: 100%; }
     footer { flex-direction: column; gap: 0.4rem; text-align: center; padding: 1.4rem 1.25rem; }
+  }
+  @media (max-width: 400px) {
+    nav { padding-left: 1rem; padding-right: 1rem; }
+    .nav-links { gap: 0.6rem; }
+    .nav-links a { font-size: 0.58rem; letter-spacing: 0.03em; }
   }
   @media print {
     nav, .cta-actions { display: none; }
@@ -123,7 +136,14 @@
 
 <nav>
   <a class="nav-logo" href="index.html">AJ<span> / Portfolio</span></a>
-  <a class="nav-back" href="index.html#blogs">← All posts</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#profile">Profile</a></li>
+    <li><a href="ba-to-ai-consultant.html">My Path</a></li>
+    <li><a href="index.html#projects">Projects</a></li>
+    <li><a href="index.html#blogs" class="active">Blogs</a></li>
+    <li><a href="index.html#about">About</a></li>
+  </ul>
 </nav>
 
 <article>
@@ -254,7 +274,7 @@
   <h3>What to borrow from waterfall</h3>
   <p>Waterfall's enduring insight is that the cheapest place to fix a mistake is before it is built. With AI agents that insight becomes stronger, not weaker, because an agent executes an ambiguous instruction literally and confidently.</p>
   <ul>
-    <li><strong>Requirements before prompts.</strong> Write a short specification (the problem, users, acceptance criteria, data handled, and what is explicitly out of scope) before the first prompt. This is the core of spec-driven development: the spec, not the chat log, is the source of truth. For <a href="index.html#projects">MealPartner</a>, a WhatsApp meal assistant I designed recently, the requirements went through several versions until every open question was closed, before a coding agent wrote a line.</li>
+    <li><strong>Requirements before prompts.</strong> Write a short specification (the problem, users, acceptance criteria, data handled, and what is explicitly out of scope) before the first prompt. This is the core of spec-driven development: the spec, not the chat log, is the source of truth. For <a href="index.html#projects">MealPartner</a>, a WhatsApp meal assistant for university students that I designed recently, the requirements went through several versions until every open question was closed, before a coding agent wrote a line.</li>
     <li><strong>Design sign-off, lightweight.</strong> Ask the agent to propose a plan and architecture first; a human approves it before any code is generated. This is a phase gate measured in minutes, not weeks.</li>
     <li><strong>Non-functional requirements up front.</strong> Security, privacy, performance and regulatory constraints rarely emerge from "make it work" prompting. State them in the spec and the repository's agent rules file. In MealPartner, deciding up front that the small local LLM never writes recipe content or links removed most of the hallucination and prompt-injection risk.</li>
     <li><strong>Traceability.</strong> Keep the spec, plan and tasks in version control alongside the code, so anyone can see why the code is the way it is.</li>
@@ -353,8 +373,7 @@
 </article>
 
 <footer>
-  <span>© 2026 Apoorva Joshi</span>
-  <span>Singapore</span>
+  <span>© 2026 Apoorva Joshi · Singapore</span>
 </footer>
 
 <!-- Visitor analytics: GoatCounter -->
