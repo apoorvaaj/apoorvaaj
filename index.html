@@ -219,8 +219,9 @@
     animation: slideUp 0.7s 0.5s ease forwards;
   }
 
-  /* Career-break note under the intro (links to the Seven Years article) */
+  /* Notes under the intro (career-case and career-break articles) */
   .home-subtitle.has-note { margin-bottom: 1rem; }
+  .home-notes { display: flex; flex-direction: column; align-items: flex-start; gap: 0.65rem; margin-bottom: 2.2rem; }
   .gap-note {
     display: inline-flex;
     align-items: baseline;
@@ -235,6 +236,9 @@
     opacity: 0;
     animation: slideUp 0.7s 0.58s ease forwards;
   }
+  .home-notes .gap-note { margin-bottom: 0; }
+  .gap-note.case-note { background: rgba(10,113,120,0.06); border-left-width: 3px; padding: 0.45rem 0.9rem 0.45rem 0.8rem; }
+  .gap-note.case-note b { font-weight: bold; }
   .gap-note b { font-weight: normal; color: var(--text); }
   .gap-note span { color: var(--accent); white-space: nowrap; transition: transform 0.2s; display: inline-block; }
   .gap-note:hover span { transform: translateX(3px); }
@@ -1029,6 +1033,9 @@
   .personal-title em { color: var(--accent); }
   .personal-excerpt { font-size: 0.88rem; line-height: 1.75; color: var(--text-dim); max-width: 720px; margin-bottom: 1.2rem; }
   .personal-cta { display: inline-block; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; background: var(--accent); padding: 0.75rem 1.4rem; }
+  /* "Start here" card: the career-case post */
+  .personal-post.start-here { border-top: 3px solid var(--accent); background: linear-gradient(135deg, var(--surface) 0%, rgba(10,113,120,0.1) 100%); }
+  .start-badge { display: inline-block; background: var(--accent); color: #fff; padding: 0.15rem 0.55rem; margin-right: 0.6rem; letter-spacing: 0.1em; }
 
   /* ==================== MOBILE ==================== */
   @media (max-width: 768px) {
@@ -1045,6 +1052,7 @@
     .home-subtitle { font-size: 1rem; margin: 1.2rem 0 1.8rem; }
     .home-subtitle.has-note { margin-bottom: 0.9rem; }
     .gap-note { font-size: 0.78rem; margin-bottom: 1.6rem; }
+    .home-notes { margin-bottom: 1.6rem; }
     .home-tags { margin-bottom: 2rem; }
     .home-ctas { flex-direction: column; align-items: stretch; }
     .home-ctas button { width: 100%; }
@@ -1104,8 +1112,9 @@
   }
 
   @media (max-width: 400px) {
-    .nav-links { gap: 0.7rem; }
-    .nav-links a { font-size: 0.6rem; letter-spacing: 0.04em; }
+    nav { padding-left: 1rem; padding-right: 1rem; }
+    .nav-links { gap: 0.6rem; }
+    .nav-links a { font-size: 0.58rem; letter-spacing: 0.03em; white-space: nowrap; }
     .home-title { font-size: 2.6rem; }
   }
 
@@ -1131,6 +1140,7 @@
   <ul class="nav-links">
     <li><a href="#" onclick="showPage('home');return false;" class="active" id="nav-home">Home</a></li>
     <li><a href="#" onclick="showPage('profile');return false;" id="nav-profile">Profile</a></li>
+    <li><a href="ba-to-ai-consultant.html" id="nav-path">My Path</a></li>
     <li><a href="#" onclick="showPage('projects');return false;" id="nav-projects">Projects</a></li>
     <li><a href="#" onclick="showPage('blogs');return false;" id="nav-blogs">Blogs</a></li>
     <li><a href="#" onclick="showPage('about');return false;" id="nav-about">About</a></li>
@@ -1151,7 +1161,10 @@
       <span class="dim">Decisions.</span>
     </h1>
     <p class="home-subtitle has-note">12 years turning complex technology into business outcomes — across presales, product and analytics in healthcare, finance and enterprise technology.</p>
-    <a class="gap-note" href="seven-years.html"><b>2019–2026: a career break, by choice.</b><span>Read why →</span></a>
+    <div class="home-notes">
+      <a class="gap-note case-note" href="ba-to-ai-consultant.html"><b>Why my path fits AI solution consulting and product management.</b><span>Read the case →</span></a>
+      <a class="gap-note" href="seven-years.html"><b>2019–2026: a career break, by choice.</b><span>Read why →</span></a>
+    </div>
     <div class="home-tags">
       <span class="tag" style="border-color:rgba(10,113,120,0.4); color:var(--accent);">Solution Consulting</span>
       <span class="tag" style="border-color:rgba(10,113,120,0.4); color:var(--accent);">Product Management</span>
@@ -1538,10 +1551,18 @@
     <div class="projects-header">
       <div class="section-label">Writing · Blog &amp; Medium</div>
       <h2 class="page-title">Thoughts &amp;<br><span class="accent">Blogs</span></h2>
-      <p class="page-subtitle">Posts on my own blog, from bringing software discipline to vibe coding and applied problem-solving in school volunteering to my career break, and articles on Medium on AI and technology policy, data storytelling, practical analysis and machine-learning practice, alongside earlier pieces on NLP research and embedding analytics in large organisations.</p>
+      <p class="page-subtitle">Posts on my own blog, from the case for my next role, bringing software discipline to vibe coding and applied problem-solving in school volunteering to my career break, and articles on Medium on AI and technology policy, data storytelling, practical analysis and machine-learning practice, alongside earlier pieces on NLP research and embedding analytics in large organisations.</p>
     </div>
 
-    <!-- Personal blog (hosted on this site) — latest post -->
+    <!-- Personal blog — START HERE: the career-case post -->
+    <a class="personal-post start-here" href="ba-to-ai-consultant.html">
+      <div class="personal-kicker"><span class="start-badge">Start here</span>From my blog · Career · Oct 2026 · 13 min read</div>
+      <div class="personal-title">Same Question, New Tools: <em>From Business Analyst to Presales to AI Solution Consultant</em></div>
+      <p class="personal-excerpt">The roles I have held, the skills I added in the last ten years, and why they add up to AI solution consulting and AI product management. How business analysis maps onto presales discovery and AI product requirements, what Singapore employers now ask for, the evidence from my three AI builds, and the roles I'm applying for, ranked honestly by fit. With a short guide for any business analyst considering the same move.</p>
+      <span class="personal-cta">Read the article →</span>
+    </a>
+
+    <!-- Personal blog (hosted on this site) -->
     <a class="personal-post" href="vibe-coding.html">
       <div class="personal-kicker">From my blog · AI · Software engineering · Oct 2026 · 10 min read</div>
       <div class="personal-title">Agile, Waterfall and the Vibe: <em>Bringing SDLC Discipline to Vibe Coding</em></div>
