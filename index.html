@@ -219,6 +219,27 @@
     animation: slideUp 0.7s 0.5s ease forwards;
   }
 
+  /* Career-break note under the intro (links to the Seven Years article) */
+  .home-subtitle.has-note { margin-bottom: 1rem; }
+  .gap-note {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    border-left: 2px solid var(--accent);
+    padding: 0.15rem 0 0.15rem 0.8rem;
+    margin-bottom: 2.2rem;
+    opacity: 0;
+    animation: slideUp 0.7s 0.58s ease forwards;
+  }
+  .gap-note b { font-weight: normal; color: var(--text); }
+  .gap-note span { color: var(--accent); white-space: nowrap; transition: transform 0.2s; display: inline-block; }
+  .gap-note:hover span { transform: translateX(3px); }
+  .gap-note:hover b { color: var(--accent); }
+
   .home-tags {
     display: flex;
     flex-wrap: wrap;
@@ -1022,6 +1043,8 @@
     .now-pill { text-align: left; font-size: 0.66rem; line-height: 1.5; }
     .home-title { font-size: 3rem; }
     .home-subtitle { font-size: 1rem; margin: 1.2rem 0 1.8rem; }
+    .home-subtitle.has-note { margin-bottom: 0.9rem; }
+    .gap-note { font-size: 0.78rem; margin-bottom: 1.6rem; }
     .home-tags { margin-bottom: 2rem; }
     .home-ctas { flex-direction: column; align-items: stretch; }
     .home-ctas button { width: 100%; }
@@ -1091,7 +1114,7 @@
     .page { display: block !important; min-height: 0; padding-top: 0; animation: none; }
     #home { min-height: 0; }
     *, *::before, *::after { animation: none !important; transition: none !important; }
-    .home-eyebrow, .home-title, .home-subtitle, .home-tags { opacity: 1 !important; transform: none !important; }
+    .home-eyebrow, .home-title, .home-subtitle, .home-tags, .gap-note { opacity: 1 !important; transform: none !important; }
     .skill-bar-fill { width: var(--pct) !important; }
     .edu-card, .value-card, .project-card:not(.recent) { break-inside: avoid; }
     .project-card { box-shadow: none; }
@@ -1127,7 +1150,8 @@
       <span class="italic">Data</span> into<br>
       <span class="dim">Decisions.</span>
     </h1>
-    <p class="home-subtitle">12 years turning complex technology into business outcomes — across presales, product and analytics in healthcare, finance and enterprise technology.</p>
+    <p class="home-subtitle has-note">12 years turning complex technology into business outcomes — across presales, product and analytics in healthcare, finance and enterprise technology.</p>
+    <a class="gap-note" href="seven-years.html"><b>2019–2026: a career break, by choice.</b><span>Read why →</span></a>
     <div class="home-tags">
       <span class="tag" style="border-color:rgba(10,113,120,0.4); color:var(--accent);">Solution Consulting</span>
       <span class="tag" style="border-color:rgba(10,113,120,0.4); color:var(--accent);">Product Management</span>
@@ -1514,14 +1538,14 @@
     <div class="projects-header">
       <div class="section-label">Writing · Blog &amp; Medium</div>
       <h2 class="page-title">Thoughts &amp;<br><span class="accent">Blogs</span></h2>
-      <p class="page-subtitle">A personal note on my career break, and articles on Medium — on AI and technology policy, data storytelling, practical analysis and machine-learning practice, alongside earlier pieces on NLP research and embedding analytics in large organisations.</p>
+      <p class="page-subtitle">Posts on my own blog, from applied problem-solving in school volunteering to my career break, and articles on Medium on AI and technology policy, data storytelling, practical analysis and machine-learning practice, alongside earlier pieces on NLP research and embedding analytics in large organisations.</p>
     </div>
 
-    <!-- Personal blog (hosted on this site) -->
-    <a class="personal-post" href="seven-years.html">
-      <div class="personal-kicker">From my blog · Personal · Oct 2026 · 5 min read</div>
-      <div class="personal-title">Seven Years, Well Spent: <em>Why I Stepped Away, and What I Bring Back</em></div>
-      <p class="personal-excerpt">“There is a line on my CV that reads 2019 to 2026. On paper, it is just two dates and a silence. I want to fill that silence, honestly.” Why I paused my career, what those years actually held, from leading volunteers to building my first tools, and why I'm returning because of them, not despite them.</p>
+    <!-- Personal blog (hosted on this site) — latest post -->
+    <a class="personal-post" href="school-dinner-seating.html">
+      <div class="personal-kicker">From my blog · School volunteering · Oct 2026 · 7 min read</div>
+      <div class="personal-title">I Used an Algorithm to Seat 900 People at a School Dinner. <em>Here's What Happened</em></div>
+      <p class="personal-excerpt">A school asked me to “look at a spreadsheet” and work out who sits where: 268 students, up to three nominated friends each, and every table exactly 9, 10 or 11 seats. Underneath it were three NP-hard problems stacked together. How I cleaned the data, found the friendship groups with Union-Find, packed them into 90 tables and seated two-thirds of students with a top-two choice in an afternoon, and the five lessons that apply to any real-world data problem.</p>
       <span class="personal-cta">Read the article →</span>
     </a>
 
@@ -1553,8 +1577,21 @@
     <!-- Articles: newest first -->
     <div class="blog-list">
 
-      <div class="blog-item" onclick="window.open('https://medium.com/@apoorva.aj/storytelling-with-data-lessons-from-a-magical-broom-de0cf412793','_blank')" >
+      <div class="blog-item" onclick="window.location.href='seven-years.html'" >
         <div class="blog-item-num">02</div>
+        <div>
+          <div class="blog-item-title">Seven Years, Well Spent: Why I Stepped Away, and What I Bring Back</div>
+          <div class="blog-item-meta">From my blog · Personal · Oct 2026</div>
+          <div style="font-size:0.82rem; color:var(--text-dim); line-height:1.65; margin-top:0.5rem; max-width:680px;">
+            The first post on this blog. Why I paused my career in 2019, what those years actually held, from leading volunteers and running school events to building my first tools, and why I'm returning because of them, not despite them.
+          </div>
+          <a class="btn-secondary btn-link" style="font-size:0.65rem; padding:0.5rem 1.1rem; margin-top:0.9rem;" href="seven-years.html" onclick="event.stopPropagation();">Read the article →</a>
+        </div>
+        <div class="blog-read-time">5 min read</div>
+      </div>
+
+      <div class="blog-item" onclick="window.open('https://medium.com/@apoorva.aj/storytelling-with-data-lessons-from-a-magical-broom-de0cf412793','_blank')" >
+        <div class="blog-item-num">03</div>
         <div>
           <div class="blog-item-title">Storytelling with Data: Lessons from a Magical Broom</div>
           <div class="blog-item-meta">Data Storytelling · Communication · Oct 2026</div>
@@ -1567,7 +1604,7 @@
       </div>
 
       <div class="blog-item" onclick="window.open('https://medium.com/@apoorva.aj/why-spreadsheet-is-still-my-favorite-data-analysis-tool-e269ff95689b','_blank')" >
-        <div class="blog-item-num">03</div>
+        <div class="blog-item-num">04</div>
         <div>
           <div class="blog-item-title">Why Spreadsheet Is Still My Favourite Data Analysis Tool</div>
           <div class="blog-item-meta">Data Analysis · Tools · AI · Oct 2026</div>
@@ -1580,7 +1617,7 @@
       </div>
 
       <div class="blog-item" onclick="window.open('https://medium.com/@apoorva.aj/data-preprocessing-pitfalls-where-good-models-go-wrong-8f9b3c3e5e15','_blank')" >
-        <div class="blog-item-num">04</div>
+        <div class="blog-item-num">05</div>
         <div>
           <div class="blog-item-title">Data Preprocessing Pitfalls: Where Good Models Go Wrong</div>
           <div class="blog-item-meta">Machine Learning · Data Quality · Oct 2026</div>
@@ -1593,7 +1630,7 @@
       </div>
 
       <div class="blog-item" onclick="window.open('https://medium.com/@apoorva.aj/optimization-v-s-machine-learning-c403e6d08a59','_blank')" >
-        <div class="blog-item-num">05</div>
+        <div class="blog-item-num">06</div>
         <div>
           <div class="blog-item-title">Optimization vs Machine Learning: Same Math, Different Worries</div>
           <div class="blog-item-meta">Machine Learning · Optimization · Oct 2026</div>
@@ -1606,7 +1643,7 @@
       </div>
 
       <div class="blog-item" onclick="window.open('https://medium.com/datadriveninvestor/sentipulse-from-news-to-numbers-24aaa7e9f5b5','_blank')" >
-        <div class="blog-item-num">06</div>
+        <div class="blog-item-num">07</div>
         <div>
           <div class="blog-item-title">SentiPulse — From News to Numbers</div>
           <div class="blog-item-meta">NLP · Deep Learning · Finance · DataDrivenInvestor · Oct 2018</div>
@@ -1620,7 +1657,7 @@
 
 
       <div class="blog-item" onclick="window.open('https://medium.com/datadriveninvestor/what-data-science-gurus-dont-tell-you-d4dbad89ed67','_blank')" >
-        <div class="blog-item-num">07</div>
+        <div class="blog-item-num">08</div>
         <div>
           <div class="blog-item-title">What Data Science Gurus Don't Tell You</div>
           <div class="blog-item-meta">Data Science · Healthcare Analytics · DataDrivenInvestor · Oct 2018</div>
@@ -1633,7 +1670,7 @@
       </div>
 
       <div class="blog-item" onclick="window.open('https://medium.com/datadriveninvestor/how-to-make-the-elephant-sing-7ad2a89f0aaa','_blank')" >
-        <div class="blog-item-num">08</div>
+        <div class="blog-item-num">09</div>
         <div>
           <div class="blog-item-title">How to Make the Elephant Sing</div>
           <div class="blog-item-meta">Enterprise Analytics · Change Management · DataDrivenInvestor</div>

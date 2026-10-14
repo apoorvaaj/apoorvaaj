@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seating 900 at a School Dinner | Apoorva Joshi</title>
+<meta name="description" content="How a school's seating spreadsheet became a real-world combinatorial optimisation problem, solved with Union-Find, bin packing and preference-weighted assignment in a single afternoon.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="I Used an Algorithm to Seat 900 People at a School Dinner. Here's What Happened">
+<meta property="og:description" content="What started as a spreadsheet favour turned into a lesson in real-world combinatorial optimisation.">
+<meta property="og:url" content="https://apoorvaaj.github.io/school-dinner-seating.html">
+<meta property="og:site_name" content="Apoorva Joshi">
+<meta property="og:image" content="https://apoorvaaj.github.io/preview.png">
+<meta property="og:image:secure_url" content="https://apoorvaaj.github.io/preview.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://apoorvaaj.github.io/preview.png">
+<link rel="canonical" href="https://apoorvaaj.github.io/school-dinner-seating.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230a7178'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='28' fill='white' text-anchor='middle'%3EAJ%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f3f6fa; --surface: #ffffff; --surface2: #e9eef5; --border: #d6dfea;
+    --accent: #0a7178; --accent3: #2b56a8; --text: #0f2240; --text-dim: #43536b; --text-dimmer: #5f6e84;
+    --sans: Verdana, Geneva, Tahoma, sans-serif;
+    --serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.6; }
+
+  nav { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+        padding: 1.1rem 4rem; background: rgba(243,246,250,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); text-decoration: none; }
+  .nav-logo span { color: var(--text-dim); }
+  .nav-back { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; }
+  .nav-back:hover { color: var(--accent); }
+
+  article { max-width: 700px; margin: 0 auto; padding: 4.5rem 1.5rem 3rem; }
+  .kicker { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); font-weight: bold;
+            display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
+  .kicker::before { content: ''; width: 32px; height: 1px; background: var(--accent); }
+  .kicker .dim { color: var(--text-dimmer); font-weight: normal; }
+  h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(2.1rem, 5.2vw, 3.1rem); line-height: 1.14; margin: 1.1rem 0 1rem; }
+  h1 em { color: var(--accent); }
+  .standfirst { font-size: 1.02rem; line-height: 1.7; color: var(--text-dim); margin-bottom: 1.6rem; }
+  .byline { display: flex; align-items: center; gap: 0.9rem; padding-bottom: 2rem; margin-bottom: 2.4rem; border-bottom: 1px solid var(--border); }
+  .avatar { width: 46px; height: 46px; border-radius: 10px; background: var(--accent); color: #fff; font-family: var(--serif); font-size: 1.15rem;
+            display: flex; align-items: center; justify-content: center; flex: none; }
+  .byline b { display: block; font-size: 0.88rem; }
+  .byline span { font-size: 0.76rem; color: var(--text-dimmer); }
+
+  .lede { font-family: var(--serif); font-size: 1.45rem; line-height: 1.5; color: var(--text); margin-bottom: 1.6rem; }
+  p { font-size: 1rem; line-height: 1.85; color: var(--text-dim); margin-bottom: 1.35rem; }
+  p strong, li strong { color: var(--text); }
+  h2 { font-family: var(--serif); font-weight: 500; font-size: 1.75rem; line-height: 1.25; margin: 3rem 0 1.1rem; color: var(--text); }
+  h2 .step { display: block; font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); font-weight: bold; margin-bottom: 0.45rem; }
+  h3 { font-family: var(--serif); font-weight: 500; font-size: 1.25rem; line-height: 1.3; margin: 2rem 0 0.6rem; color: var(--text); }
+  ul { list-style: none; margin: 0 0 1.6rem; }
+  li { position: relative; padding-left: 1.5rem; margin-bottom: 0.95rem; font-size: 1rem; line-height: 1.8; color: var(--text-dim); }
+  li::before { content: ''; position: absolute; left: 0.2rem; top: 0.72rem; width: 7px; height: 7px; background: var(--accent); transform: rotate(45deg); }
+  a { color: var(--accent); }
+
+  .pull { margin: 2.6rem 0; padding: 1.6rem 1.8rem; border-left: 3px solid var(--accent); background: var(--surface); }
+  .pull p { font-family: var(--serif); font-size: 1.45rem; line-height: 1.45; color: var(--text); margin: 0; }
+
+  /* Problem stack */
+  .stack { display: grid; gap: 0.7rem; margin: 0 0 1.8rem; }
+  .stack div { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: 0.95rem 1.2rem; }
+  .stack b { display: block; font-family: var(--serif); font-weight: 500; font-size: 1.1rem; color: var(--text); }
+  .stack span { font-size: 0.88rem; color: var(--text-dim); }
+
+  /* Pipeline */
+  .pipeline { display: flex; align-items: stretch; gap: 0.5rem; margin: 0 0 2rem; flex-wrap: wrap; }
+  .pipeline .stage { flex: 1 1 120px; background: var(--surface); border: 1px solid var(--border); padding: 0.8rem 0.9rem; }
+  .pipeline .stage small { display: block; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); font-weight: bold; margin-bottom: 0.25rem; }
+  .pipeline .stage span { font-size: 0.82rem; color: var(--text); line-height: 1.45; display: block; }
+  .pipeline .arrow { align-self: center; color: var(--text-dimmer); font-size: 0.9rem; }
+
+  /* Stats */
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--border); background: var(--surface); margin: 0.4rem 0 1.6rem; }
+  .stat { padding: 1.3rem 1.2rem; border-right: 1px solid var(--border); }
+  .stat:last-child { border-right: none; }
+  .stat b { display: block; font-family: var(--serif); font-weight: 500; font-size: 2.1rem; color: var(--accent); line-height: 1.1; }
+  .stat span { display: block; font-size: 0.76rem; color: var(--text-dim); line-height: 1.5; margin-top: 0.3rem; }
+  .stat.muted b { color: var(--text-dimmer); }
+
+  .facts { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 0 1.8rem; }
+  .facts span { font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-dim); background: var(--surface); border: 1px solid var(--border); padding: 0.35rem 0.7rem; }
+  .facts b { color: var(--accent); }
+
+  ol.lessons { list-style: none; counter-reset: lesson; margin: 0 0 1.6rem; }
+  ol.lessons li { counter-increment: lesson; padding-left: 2.6rem; }
+  ol.lessons li::before { content: counter(lesson, decimal-leading-zero); transform: none; width: auto; height: auto; background: none;
+                          top: 0.15rem; left: 0; font-family: var(--serif); font-size: 1.15rem; color: var(--accent); }
+
+  .builtwith { font-size: 0.8rem; color: var(--text-dimmer); border-top: 1px solid var(--border); padding-top: 1.2rem; margin-top: 2.4rem; }
+
+  .cta { margin: 3.2rem 0 0; padding: 2rem; background: var(--surface); border: 1px solid var(--border); }
+  .cta h3 { font-family: var(--serif); font-weight: 500; font-size: 1.45rem; margin: 0 0 0.5rem; }
+  .cta p { font-size: 0.9rem; margin-bottom: 1.3rem; }
+  .cta-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.08em;
+         text-transform: uppercase; text-decoration: none; padding: 0.85rem 1.4rem; border: 1px solid var(--accent); }
+  .btn.primary { background: var(--accent); color: #fff; }
+  .btn.primary:hover { background: var(--text); border-color: var(--text); }
+  .btn.secondary { color: var(--text-dim); border-color: var(--border); background: transparent; }
+  .btn.secondary:hover { color: var(--accent); border-color: var(--accent); }
+
+  footer { border-top: 1px solid var(--border); padding: 1.5rem 4rem; display: flex; justify-content: space-between; font-size: 0.68rem;
+           color: var(--text-dimmer); letter-spacing: 0.06em; }
+
+  @media (max-width: 768px) {
+    nav { padding: 0.9rem 1.25rem; }
+    .nav-logo span { display: none; }
+    article { padding: 2.6rem 1.25rem 2rem; }
+    .lede { font-size: 1.25rem; }
+    h2 { font-size: 1.5rem; margin-top: 2.4rem; }
+    .pull { padding: 1.2rem 1.2rem; }
+    .pull p { font-size: 1.25rem; }
+    .pipeline { flex-direction: column; }
+    .pipeline .arrow { transform: rotate(90deg); }
+    .stats { grid-template-columns: 1fr; }
+    .stat { border-right: none; border-bottom: 1px solid var(--border); }
+    .stat:last-child { border-bottom: none; }
+    .cta { padding: 1.4rem 1.2rem; }
+    .btn { width: 100%; }
+    footer { flex-direction: column; gap: 0.4rem; text-align: center; padding: 1.4rem 1.25rem; }
+  }
+  @media print {
+    nav, .cta-actions { display: none; }
+    body { background: #fff; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">AJ<span> / Portfolio</span></a>
+  <a class="nav-back" href="index.html#blogs">← All writing</a>
+</nav>
+
+<article>
+  <div class="kicker">School volunteering <span class="dim">· Oct 2026 · 7 min read</span></div>
+  <h1>I Used an Algorithm to Seat 900 People at a School Dinner. <em>Here's What Happened</em></h1>
+  <p class="standfirst">What started as a spreadsheet favour turned into a masterclass in real-world combinatorial optimisation.</p>
+  <div class="byline">
+    <div class="avatar" aria-hidden="true">AJ</div>
+    <div><b>Apoorva Joshi</b><span>AI Solution Consultant (Presales) · Product Manager</span></div>
+  </div>
+
+  <p class="lede">When a school asked for help organising seating for their annual family dinner, the request sounded simple: “Can you look at this spreadsheet and figure out who sits where?”</p>
+  <p>The spreadsheet had 268 rows. Students had nominated up to three preferred dinner companions. Families had bought tickets: one ticket, one seat. Some students had submitted the form twice. Some names were spelled three different ways. And every table had to seat exactly 9, 10 or 11 people, no exceptions, across a venue with fewer than 94 tables.</p>
+  <p>Simple, right?</p>
+
+  <div class="facts">
+    <span><b>268</b> students</span><span><b>~900</b> guests</span><span><b>3</b> nominations each</span><span><b>9–11</b> seats per table</span><span><b>94</b> tables max</span>
+  </div>
+
+  <h2>Why this is harder than it looks</h2>
+  <p>This is not a seating chart problem. It is, formally, a combination of three classically difficult problems stacked on top of each other:</p>
+  <div class="stack">
+    <div><b>Graph partitioning</b><span>Who belongs in the same social cluster?</span></div>
+    <div><b>Bin packing</b><span>How do you fit groups of irregular sizes into fixed-capacity containers?</span></div>
+    <div><b>Constraint satisfaction</b><span>How do you honour individual preferences within those containers?</span></div>
+  </div>
+  <p>Each of these is NP-hard individually. Together, with messy real-world data, they become the kind of problem that operations research departments publish papers about. We had an afternoon.</p>
+
+  <div class="pipeline" role="img" aria-label="Four-stage approach: clean the data, find social groups, pack the tables, assign seats">
+    <div class="stage"><small>Step 1</small><span>Clean &amp; merge the data</span></div><div class="arrow">→</div>
+    <div class="stage"><small>Step 2</small><span>Find social groups (Union-Find)</span></div><div class="arrow">→</div>
+    <div class="stage"><small>Step 3</small><span>Pack tables (bin packing)</span></div><div class="arrow">→</div>
+    <div class="stage"><small>Step 4</small><span>Assign seats (greedy scoring)</span></div>
+  </div>
+
+  <h2><span class="step">Step 1</span>Clean the mess first</h2>
+  <p>Before any algorithm touches data, the data has to be trustworthy. Nine students had submitted the form more than once, sometimes with different choices. Names appeared in multiple casings: “Maya Fernandes-Lim” and “maya fernandes-lim” are the same person. Some students nominated peers who hadn't filled in the form at all.</p>
+  <p>Every duplicate was merged, combining all unique preference choices across submissions. Every name was normalised. Every cross-reference was validated. Only then did the actual problem begin.</p>
+  <div class="pull"><p>Garbage in, garbage out is not a cliché. It is the most expensive mistake in applied data science.</p></div>
+
+  <h2><span class="step">Step 2</span>Find the social groups</h2>
+  <p>With 268 students each nominating up to three others, the nominations form a directed graph: arrows pointing from nominator to nominee. The goal was to find clusters of students who are socially connected, directly or transitively.</p>
+  <p>If A nominates B, and B nominates C, and C nominates D, all four belong together, even if A has never mentioned D.</p>
+  <p>This is a classic <strong>Union-Find</strong> problem, solved using a data structure called Disjoint Set Union (DSU) with path compression. Every nomination merges two nodes into the same cluster. Run it across all 268 students and their choices, and the graph resolves into <strong>56 distinct social groups</strong>, ranging from a 21-member supergroup down to simple pairs, plus 32 students with no connections at all.</p>
+  <p>The algorithm runs in near-linear time. The hard part was trusting it when a 21-person group emerged that would need to be split across seven tables.</p>
+
+  <h2><span class="step">Step 3</span>Pack the tables</h2>
+  <p>Each social group now had a total ticket count. The constraint: fit those tickets into tables of exactly 9, 10 or 11 seats. No group crosses a table boundary. No table sits half-empty.</p>
+  <p>This is <strong>bin packing</strong>: provably NP-hard, meaning there is no known algorithm that guarantees the perfect solution in reasonable time for large inputs. For each group, the approach was exhaustive search within a bounded range: try all combinations of 9s, 10s and 11s that cover the group's total tickets, minimise the number of tables used, minimise empty seats.</p>
+  <p>The result: <strong>90 tables</strong>, four under the venue ceiling of 94, with a handful of under-filled tables flagged for manual top-up from the unconnected group.</p>
+
+  <h2><span class="step">Step 4</span>Honour the preferences</h2>
+  <p>Groups were assigned to tables. Now the question was: within a group that spans multiple tables, who sits where?</p>
+  <p>A greedy preference-weighted algorithm scored each possible placement, giving higher weight to mutual nominations (A nominated B and B nominated A) than one-way ones, with a secondary score for table fill rate to avoid fragmentation. Each student was placed at the table that maximised their preference score given remaining capacity.</p>
+  <p>It is not globally optimal. A true Integer Linear Program (ILP) solver would find better solutions given enough compute time. But greedy with smart scoring is often 80–90% of optimal at a fraction of the cost, and in this case, the results bore that out.</p>
+
+  <h2>The numbers</h2>
+  <p>Of 200 students who made at least one nomination:</p>
+  <div class="stats">
+    <div class="stat"><b>57%</b><span>seated with their first choice</span></div>
+    <div class="stat"><b>67.5%</b><span>seated with their first or second choice</span></div>
+    <div class="stat muted"><b>32.5%</b><span>got neither, largely because the largest group needed seven tables</span></div>
+  </div>
+  <p>The 65 unsatisfied students were identified and listed explicitly, with notes on where their preferred companions landed. Most are one table away. A manual swap pass could push overall satisfaction above 75%.</p>
+
+  <h2>Lessons learnt</h2>
+  <ol class="lessons">
+    <li><strong>Data quality is the real problem.</strong> The algorithm took minutes to write and seconds to run. Data cleaning took the most time and required the most judgement: how to handle duplicate submissions, how to resolve name mismatches, whether to trust a nomination that points to an unknown student. In production systems, this phase is perpetually underestimated and chronically underfunded. It shouldn't be.</li>
+    <li><strong>Decomposition beats sophistication.</strong> The instinct when facing an NP-hard problem is to reach for a powerful solver. The better instinct is to ask whether the problem can be broken into smaller, tractable sub-problems. Separating group formation (Union-Find), table packing (bin packing) and seat assignment (greedy scoring) meant each stage was independently debuggable, explainable and replaceable. A monolithic ILP across all 268 students would have been harder to build, harder to explain, and not meaningfully better in outcome.</li>
+    <li><strong>Define your satisfaction metric before you start, not after.</strong> “Everyone sits with someone they like” is not a metric. “Percentage of students seated with their first or second choice” is. Having a concrete, computable measure of success changed how the algorithm was designed; specifically, it made mutual nominations worth double the score of one-way nominations. Without the metric defined upfront, that weighting decision would have been arbitrary.</li>
+    <li><strong>Structural constraints cap your ceiling, and that's fine.</strong> 67.5% satisfaction sounds like a B+. But the theoretical maximum here is not 100%. It is structurally lower, because some nominations point across groups, some groups are too large for a single table, and some students nominated the same person as their first and second choice. Knowing the ceiling matters as much as knowing the score.</li>
+    <li><strong>Always surface the residual.</strong> The 65 unsatisfied students weren't just reported as a number. They were listed, with their choices and the tables those choices landed on. Making the failure cases explicit and actionable is what separates a useful optimisation from a black box. Organisers could pick up that list and make five targeted swaps to meaningfully improve the outcome.</li>
+  </ol>
+
+  <h2>What a productionised version would look like</h2>
+  <p>This solution was built for a one-time event with a single spreadsheet. Scaling it into a reusable tool, for a school system, a conference organiser or a corporate events team, would require a few deliberate additions.</p>
+  <ul>
+    <li><strong>A proper data intake layer.</strong> Replace the Google Form with a structured intake that enforces name matching against a pre-loaded student registry at submission time. This eliminates the single biggest source of manual work: resolving free-text names that refer to the same person. A fuzzy-match lookup at form submission, flagging ambiguous entries for confirmation, would reduce post-collection cleaning from hours to minutes.</li>
+    <li><strong>An ILP solver for within-group assignment.</strong> The greedy seat assignment works well but leaves satisfaction points on the table for larger groups. A mixed-integer linear program using an open-source solver like PuLP or Google OR-Tools would find globally optimal within-group assignments, likely pushing first or second choice satisfaction above 80% for the same inputs.</li>
+    <li><strong>An interactive swap interface.</strong> The output today is a spreadsheet with flagged rows. A lightweight web interface, showing each table's current occupants, their unmet preferences and suggested swaps, would let an organiser make final adjustments in minutes rather than manually cross-referencing Excel sheets. The swap engine itself is simple: for each unsatisfied student, find a same-group student on an adjacent table whose swap would increase net satisfaction without breaking capacity constraints.</li>
+    <li><strong>A satisfaction simulation mode.</strong> Before the event, run the algorithm across historical preference data to benchmark expected satisfaction rates. This gives organisers realistic expectations and surfaces structural issues, like groups that are simply too large for a single table, early enough to act on them, for example by increasing table capacity or splitting the group intentionally.</li>
+    <li><strong>Audit logging and reproducibility.</strong> In any operational context, the output needs to be reproducible and auditable. Every allocation decision (group assignments, table packing choices, seat assignments) should be logged with the input state that produced it, so that re-runs after late ticket changes don't silently produce a different seating plan.</li>
+  </ul>
+  <p>The core algorithms don't change. What productionisation adds is the scaffolding that makes a one-afternoon solution trustworthy enough to run every year, by someone who wasn't in the room when it was built.</p>
+
+  <h2>What this is really about</h2>
+  <p>No school administrator thinks of their dinner as a graph partitioning problem. No parent filling in a Google Form thinks of their three nominations as directed edges in a combinatorial structure. But that is exactly what they are, and treating them that way is what turns a messy spreadsheet into a defensible, explainable, optimised seating plan in a single afternoon.</p>
+  <p>This is what applied AI and data science actually looks like in practice. Not a neural network. Not a GPU cluster. A well-decomposed problem, the right classical algorithms, and enough care to clean the data before touching it.</p>
+  <div class="pull"><p>The hard problems are everywhere. Most of them are disguised as spreadsheets.</p></div>
+
+  <p class="builtwith">Built with Python (pandas, openpyxl), Union-Find, greedy bin packing and preference-weighted graph assignment. Part of my school volunteering during my career break. <a href="seven-years.html">Read the full story →</a></p>
+
+  <div class="cta">
+    <h3>Let's talk</h3>
+    <p>I'm open to roles in AI solution consulting (presales) and product management.</p>
+    <div class="cta-actions">
+      <a class="btn primary" href="https://www.linkedin.com/in/apoorva-joshi" target="_blank" rel="noopener">Connect on LinkedIn →</a>
+      <a class="btn secondary" href="index.html#projects">View my projects</a>
+      <a class="btn secondary" href="Apoorva_Joshi_Resume.pdf" target="_blank" rel="noopener" id="resume-link">Resume (PDF) ↓</a>
+    </div>
+  </div>
+</article>
+
+<footer>
+  <span>© 2026 Apoorva Joshi</span>
+  <span>Singapore</span>
+</footer>
+
+<script>
+  document.getElementById('resume-link').addEventListener('click', function () {
+    var gc = window.goatcounter;
+    if (gc && typeof gc.count === 'function') gc.count({ path: 'resume-pdf-download', title: 'Resume PDF download', event: true });
+  });
+</script>
+<!-- Visitor analytics: GoatCounter -->
+<script data-goatcounter="https://apoorvaaj.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>
