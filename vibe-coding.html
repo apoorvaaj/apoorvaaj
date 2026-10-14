@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agile, Waterfall and the Vibe | Apoorva Joshi</title>
+<meta name="description" content="How waterfall and agile principles of the software development life cycle can be applied to vibe coding, with best practices for individuals and organisations.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Agile, Waterfall and the Vibe: Bringing SDLC Discipline to Vibe Coding">
+<meta property="og:description" content="Vibe coding doesn't make the software development life cycle obsolete; it compresses it. How to keep the speed and bring back the discipline.">
+<meta property="og:url" content="https://apoorvaaj.github.io/vibe-coding.html">
+<meta property="og:site_name" content="Apoorva Joshi">
+<meta property="og:image" content="https://apoorvaaj.github.io/preview.png">
+<meta property="og:image:secure_url" content="https://apoorvaaj.github.io/preview.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://apoorvaaj.github.io/preview.png">
+<link rel="canonical" href="https://apoorvaaj.github.io/vibe-coding.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230a7178'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='28' fill='white' text-anchor='middle'%3EAJ%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f3f6fa; --surface: #ffffff; --surface2: #e9eef5; --border: #d6dfea;
+    --accent: #0a7178; --accent3: #2b56a8; --text: #0f2240; --text-dim: #43536b; --text-dimmer: #5f6e84;
+    --sans: Verdana, Geneva, Tahoma, sans-serif;
+    --serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.6; }
+
+  nav { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+        padding: 1.1rem 4rem; background: rgba(243,246,250,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); text-decoration: none; }
+  .nav-logo span { color: var(--text-dim); }
+  .nav-back { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; }
+  .nav-back:hover { color: var(--accent); }
+
+  article { max-width: 760px; margin: 0 auto; padding: 4.5rem 1.5rem 3rem; }
+  .kicker { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); font-weight: bold;
+            display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
+  .kicker::before { content: ''; width: 32px; height: 1px; background: var(--accent); }
+  .kicker .dim { color: var(--text-dimmer); font-weight: normal; }
+  h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(2.2rem, 5.5vw, 3.3rem); line-height: 1.12; margin: 1.1rem 0 1.6rem; }
+  h1 em { color: var(--accent); }
+  .byline { display: flex; align-items: center; gap: 0.9rem; padding-bottom: 2rem; margin-bottom: 2.4rem; border-bottom: 1px solid var(--border); }
+  .avatar { width: 46px; height: 46px; border-radius: 10px; background: var(--accent); color: #fff; font-family: var(--serif); font-size: 1.15rem;
+            display: flex; align-items: center; justify-content: center; flex: none; }
+  .byline b { display: block; font-size: 0.88rem; }
+  .byline span { font-size: 0.76rem; color: var(--text-dimmer); }
+
+  .lede { font-family: var(--serif); font-size: 1.45rem; line-height: 1.5; color: var(--text); margin-bottom: 1.6rem; }
+  p { font-size: 1rem; line-height: 1.85; color: var(--text-dim); margin-bottom: 1.35rem; }
+  p strong, li strong { color: var(--text); }
+  h2 { font-family: var(--serif); font-weight: 500; font-size: 1.75rem; line-height: 1.25; margin: 3rem 0 1.1rem; color: var(--text); }
+  h3 { font-family: var(--serif); font-weight: 500; font-size: 1.3rem; line-height: 1.3; margin: 2.2rem 0 0.9rem; color: var(--text); }
+  ul, ol { list-style: none; margin: 0 0 1.6rem; }
+  li { position: relative; padding-left: 1.5rem; margin-bottom: 0.95rem; font-size: 1rem; line-height: 1.8; color: var(--text-dim); }
+  ul > li::before { content: ''; position: absolute; left: 0.2rem; top: 0.72rem; width: 7px; height: 7px; background: var(--accent); transform: rotate(45deg); }
+  ol { counter-reset: n; }
+  ol > li { counter-increment: n; padding-left: 2rem; }
+  ol > li::before { content: counter(n); position: absolute; left: 0; top: 0.18rem; width: 1.35rem; height: 1.35rem; border: 1px solid var(--accent);
+                    color: var(--accent); font-size: 0.68rem; display: flex; align-items: center; justify-content: center; }
+  a { color: var(--accent); }
+  code { font-family: Menlo, Consolas, monospace; font-size: 0.86em; background: var(--surface2); padding: 0.05rem 0.35rem; border-radius: 3px; color: var(--text); }
+
+  .pull { margin: 2.6rem 0; padding: 1.6rem 1.8rem; border-left: 3px solid var(--accent); background: var(--surface); }
+  .pull p { font-family: var(--serif); font-size: 1.5rem; line-height: 1.45; color: var(--text); margin: 0; }
+
+  .table-wrap { overflow-x: auto; margin: 1.6rem 0 2rem; border: 1px solid var(--border); background: var(--surface); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; line-height: 1.55; min-width: 560px; }
+  th { text-align: left; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
+       background: var(--surface2); padding: 0.75rem 0.9rem; border-bottom: 1px solid var(--border); }
+  td { padding: 0.75rem 0.9rem; border-bottom: 1px solid var(--border); color: var(--text-dim); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td:first-child { color: var(--text); font-weight: bold; }
+  td.vibe { color: #a33a12; }
+
+  figure { margin: 2rem 0 2.2rem; padding: 1.4rem; background: var(--surface); border: 1px solid var(--border); }
+  figure svg { width: 100%; height: auto; display: block; }
+  figcaption { font-size: 0.8rem; color: var(--text-dimmer); margin-top: 0.9rem; line-height: 1.6; }
+
+  .sources li { font-size: 0.85rem; line-height: 1.6; margin-bottom: 0.6rem; }
+
+  .cta { margin: 3.2rem 0 0; padding: 2rem; background: var(--surface); border: 1px solid var(--border); }
+  .cta h3 { font-family: var(--serif); font-weight: 500; font-size: 1.45rem; margin: 0 0 0.5rem; }
+  .cta p { font-size: 0.9rem; margin-bottom: 1.3rem; }
+  .cta-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.08em;
+         text-transform: uppercase; text-decoration: none; padding: 0.85rem 1.4rem; border: 1px solid var(--accent); }
+  .btn.primary { background: var(--accent); color: #fff; }
+  .btn.primary:hover { background: var(--text); border-color: var(--text); }
+  .btn.secondary { color: var(--text-dim); border-color: var(--border); background: transparent; }
+  .btn.secondary:hover { color: var(--accent); border-color: var(--accent); }
+
+  footer { border-top: 1px solid var(--border); padding: 1.5rem 4rem; display: flex; justify-content: space-between; font-size: 0.68rem;
+           color: var(--text-dimmer); letter-spacing: 0.06em; }
+
+  @media (max-width: 768px) {
+    nav { padding: 0.9rem 1.25rem; }
+    .nav-logo span { display: none; }
+    article { padding: 2.6rem 1.25rem 2rem; }
+    .lede { font-size: 1.25rem; }
+    h2 { font-size: 1.5rem; margin-top: 2.4rem; }
+    .pull { padding: 1.2rem 1.2rem; }
+    .pull p { font-size: 1.25rem; }
+    figure { padding: 0.8rem; }
+    .cta { padding: 1.4rem 1.2rem; }
+    .btn { width: 100%; }
+    footer { flex-direction: column; gap: 0.4rem; text-align: center; padding: 1.4rem 1.25rem; }
+  }
+  @media print {
+    nav, .cta-actions { display: none; }
+    body { background: #fff; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">AJ<span> / Portfolio</span></a>
+  <a class="nav-back" href="index.html#blogs">← All posts</a>
+</nav>
+
+<article>
+  <div class="kicker">AI · Software Engineering <span class="dim">· Oct 2026 · 10 min read</span></div>
+  <h1>Agile, Waterfall and the Vibe: <em>Bringing SDLC Discipline to Vibe Coding</em></h1>
+  <div class="byline">
+    <div class="avatar" aria-hidden="true">AJ</div>
+    <div><b>Apoorva Joshi</b><span>AI Solution Consultant (Presales) · Product Manager</span></div>
+  </div>
+
+  <p class="lede">Vibe coding does not make the software development life cycle obsolete; it compresses it.</p>
+  <p>Requirements, design, build, test and release still happen, but now they can happen inside a single afternoon conversation with an AI agent. The teams getting real value from vibe coding are the ones that deliberately re-insert the discipline of waterfall and agile at the points where speed tends to erase it.</p>
+  <p>This article walks through what vibe coding is, why it has spread so quickly, how people are actually using it, where it collides with classic SDLC thinking, and a practical set of practices that borrow the best of both models.</p>
+
+  <h2>What is vibe coding?</h2>
+  <p>Vibe coding is building software by describing what you want to an AI model in plain language, running what it produces, and steering by feedback rather than by reading the code. The human acts as director; the AI acts as author.</p>
+  <p>The term was coined by Andrej Karpathy, OpenAI co-founder and former head of AI at Tesla, in a post on X on 2 February 2025. He described giving in to the vibes and forgetting the code even exists: accepting every change without reading the diffs, pasting error messages straight back to the model, and asking for tweaks by voice. Tellingly, he framed it as fine for throwaway weekend projects. Within months the phrase had escaped its origins, and Collins Dictionary named it its Word of the Year for 2025.</p>
+  <p>It helps to separate two things that often get lumped together:</p>
+  <ul>
+    <li><strong>Vibe coding in the strict sense.</strong> The human does not review or understand the generated code; working output is the only test. Simon Willison's line is a useful one: if you reviewed, tested and understood it, it was not vibe coding.</li>
+    <li><strong>AI-assisted engineering.</strong> The human uses the same tools but stays accountable for design, review and testing. Karpathy himself later used the term "agentic engineering" for this more structured evolution.</li>
+  </ul>
+  <p>Most organisations say "vibe coding" and mean something on a spectrum between these two. The rest of this article is about moving deliberately along that spectrum.</p>
+
+  <h2>Why it is catching on</h2>
+  <p>Vibe coding spread because three curves crossed at once: models got good enough, tools got agentic enough, and the cost of trying became close to zero.</p>
+  <ol>
+    <li><strong>Model capability.</strong> Current models can hold a whole feature, its spec, relevant code, tests and conventions, in context and work across many files in a single session. Two years ago they mostly completed lines.</li>
+    <li><strong>Agentic tooling.</strong> Tools such as Cursor, Claude Code, GitHub Copilot's agent mode, Replit and Windsurf no longer just suggest code; they run it, read the error, and try again. That loop is exactly what Karpathy was describing.</li>
+    <li><strong>Democratisation.</strong> Product managers, analysts, operations staff and founders can now produce a working prototype without waiting for an engineering queue. Some CIOs are actively enlisting business users to build their own tools.</li>
+    <li><strong>Speed to a demo.</strong> An MVP that once needed a sprint can be shown in a day. In a world where a demo wins budget, that is a powerful incentive.</li>
+    <li><strong>It is fun.</strong> The feedback loop is immediate and the barrier to starting is gone. Developers in surveys report high satisfaction even when objective productivity gains are mixed.</li>
+  </ol>
+  <p>The adoption numbers reflect this. Industry trackers aggregating 2026 surveys describe AI coding tools as having moved from experiment to enterprise standard in roughly 18 months, and Gartner projects that the large majority of enterprise software engineers will use AI code assistants by 2028. One survey cited in academic work found three-quarters of respondents already using vibe coding, nine in ten of them satisfied with it.</p>
+  <p>The recurring theme in almost every one of those reports, however, is the same: adoption is running well ahead of governance.</p>
+
+  <h2>How organisations and coders are vibe coding</h2>
+  <p>In practice, vibe coding shows up in five recognisable patterns, each with a different risk profile.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Pattern</th><th>Who</th><th>What they build</th><th>Typical risk</th></tr></thead>
+      <tbody>
+        <tr><td>Weekend and side projects</td><td>Individual developers, hobbyists</td><td>Personal apps, games, scripts, automations</td><td>Low: the blast radius is one person</td></tr>
+        <tr><td>Prototypes and MVPs</td><td>Founders, product managers, innovation teams</td><td>Clickable demos, proofs of concept, investor builds</td><td>Prototype quietly becomes production</td></tr>
+        <tr><td>Citizen development</td><td>Analysts, ops and business users</td><td>Internal dashboards, workflow tools, data clean-up</td><td>Shadow IT, access to sensitive data, no owner</td></tr>
+        <tr><td>Developer acceleration</td><td>Professional engineering teams</td><td>Boilerplate, tests, migrations, refactors, new features</td><td>Unreviewed code in shared codebases, security debt</td></tr>
+        <tr><td>Agent-led delivery</td><td>Platform and AI-first teams</td><td>Whole features delegated to coding agents with specs and tests</td><td>Agent drift, weak specs, review becomes the bottleneck</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>A few observations on how organisations are responding:</p>
+  <ul>
+    <li><strong>Sandboxed citizen platforms.</strong> Rather than ban it, many IT functions now provide governed environments where business users can build, with review and approval required before an app touches sensitive data or runs in production.</li>
+    <li><strong>Tool standardisation.</strong> Firms are mapping which AI tools developers already use, sanctioned or not, and consolidating onto a few platforms with enterprise controls such as SSO, audit logs and data-retention settings.</li>
+    <li><strong>Repository conventions for agents.</strong> Engineering teams increasingly keep instruction files such as <code>CLAUDE.md</code> or <code>AGENTS.md</code> at the repository root so every agent session starts from the same coding standards and architecture rules.</li>
+    <li><strong>Spec-first workflows.</strong> Open-source toolkits like GitHub's Spec Kit and spec-centred IDEs like AWS Kiro push the agent through a specify, plan, tasks, implement sequence instead of free-form prompting.</li>
+  </ul>
+  <p>That last trend is the most telling: practitioners are reinventing SDLC structure from the inside.</p>
+
+  <h2>Where vibe coding collides with waterfall and agile</h2>
+  <p>Vibe coding looks agile on the surface, with short loops, working software and constant change, but it quietly drops the parts of both models that exist to manage risk.</p>
+  <p>Waterfall assumes you know what you are building before you build it, and that each phase produces a signed-off artefact. Agile assumes requirements will change, but insists on small increments, a definition of done, team ownership and continuous feedback from real users. Pure vibe coding honours neither assumption fully.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>SDLC principle</th><th>Waterfall</th><th>Agile</th><th>Pure vibe coding</th></tr></thead>
+      <tbody>
+        <tr><td>Requirements</td><td>Complete and signed off up front</td><td>Backlog of user stories, refined continuously</td><td class="vibe">Lives in the prompt history; rarely written down</td></tr>
+        <tr><td>Design and architecture</td><td>Formal design phase before build</td><td>Emergent, but guided by team standards</td><td class="vibe">Emerges from whatever the model chose; often inconsistent across sessions</td></tr>
+        <tr><td>Unit of change</td><td>Phase</td><td>Small, reviewable increment</td><td class="vibe">Large, multi-file diffs accepted wholesale</td></tr>
+        <tr><td>Definition of done</td><td>Passes formal test phase</td><td>Meets acceptance criteria and team DoD</td><td class="vibe">"It runs and looks right"</td></tr>
+        <tr><td>Testing</td><td>Dedicated phase, independent testers</td><td>Automated tests in every sprint</td><td class="vibe">Validation by clicking around</td></tr>
+        <tr><td>Code review</td><td>Inspection gates</td><td>Peer review on every change</td><td class="vibe">Skipped: the diff is not read</td></tr>
+        <tr><td>Documentation</td><td>Heavy, produced per phase</td><td>Light but deliberate</td><td class="vibe">Usually none</td></tr>
+        <tr><td>Ownership</td><td>Defined roles and sign-offs</td><td>Team collectively owns the code</td><td class="vibe">Nobody fully understands the code</td></tr>
+        <tr><td>Change control</td><td>Formal change requests</td><td>Reprioritised each sprint</td><td class="vibe">Continuous, untracked</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The consequences are now measurable:</p>
+  <ul>
+    <li><strong>Security.</strong> Veracode's testing of over 100 models found 45% of AI-generated code samples failed security tests against the OWASP Top 10. The SusVibes benchmark found that while 61% of one leading agent's solutions were functionally correct, only 10.5% were also secure, and adding security hints to the prompt did not fix it.</li>
+    <li><strong>Characteristic flaws.</strong> Research on deployed vibe-coded apps points to recurring patterns: placeholder logic left in, unfiltered input, exposed secrets and broken authorisation logic. These are the failures you get when nobody holds the system-wide intent.</li>
+    <li><strong>Perceived versus real productivity.</strong> In METR's 2025 randomised trial, experienced open-source developers expected AI tools to speed them up by 24%, and afterwards believed they had been 20% faster. Measured, they were 19% slower on familiar, complex codebases. The authors note results may differ with newer tools and other settings, but the gap between feeling and fact is the lesson.</li>
+    <li><strong>Technical debt.</strong> Code that "mostly works" accumulates. Vibe coding is easy; vibe debugging six months later is the hard part.</li>
+  </ul>
+  <p>None of this means the old models were right and vibe coding is wrong. Waterfall's big up-front design is too slow for exploratory work, and agile's ceremonies were built around human typing speed. The task is to keep the <em>intent</em> behind each principle while changing its <em>form</em>.</p>
+
+  <h2>Applying waterfall and agile principles to vibe coding</h2>
+  <p>The workable model is a hybrid: waterfall discipline at the bookends, agile cadence in the middle, and vibe-style speed only inside a tightly bounded build loop.</p>
+
+  <figure>
+    <svg viewBox="0 0 760 408" role="img" aria-label="Vibes stay inside a gated, test-first loop" font-family="Verdana, Geneva, Tahoma, sans-serif" font-size="13">
+      <defs><marker id="hy-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8a99ad"/></marker></defs>
+      <text x="24" y="34" font-size="15" font-weight="600" fill="#0f2240">Vibes stay inside a gated, test-first loop</text>
+      <g fill="#f6f8fb" stroke="#c4cfdc" stroke-width="1">
+        <rect x="24" y="64" width="208" height="288" rx="8"/><rect x="264" y="64" width="208" height="288" rx="8"/><rect x="504" y="64" width="208" height="288" rx="8"/>
+      </g>
+      <g font-weight="600" fill="#0f2240" text-anchor="middle">
+        <text x="128" y="88">Waterfall: define</text><text x="368" y="88">Agile + vibe: build</text><text x="608" y="88">Waterfall: release</text>
+      </g>
+      <g fill="#e9eef5" stroke="#8a99ad" stroke-width="1.25">
+        <rect x="40" y="104" width="176" height="56" rx="8"/><rect x="40" y="184" width="176" height="56" rx="8"/>
+        <rect x="280" y="104" width="176" height="56" rx="8"/><rect x="280" y="264" width="176" height="56" rx="8"/>
+        <rect x="520" y="104" width="176" height="56" rx="8"/><rect x="520" y="184" width="176" height="56" rx="8"/>
+      </g>
+      <rect x="280" y="184" width="176" height="56" rx="8" fill="rgba(10,113,120,0.12)" stroke="#0a7178" stroke-width="2"/>
+      <g text-anchor="middle">
+        <text x="128" y="128" font-weight="600" fill="#0f2240">Spec</text><text x="128" y="146" font-size="11.5" fill="#5f6e84">goal, criteria, limits</text>
+        <text x="128" y="208" font-weight="600" fill="#0f2240">Plan</text><text x="128" y="226" font-size="11.5" fill="#5f6e84">agent drafts, human OKs</text>
+        <text x="368" y="128" font-weight="600" fill="#0f2240">Tests first</text><text x="368" y="146" font-size="11.5" fill="#5f6e84">from the criteria</text>
+        <text x="368" y="208" font-weight="600" fill="#0f2240">Vibe build</text><text x="368" y="226" font-size="11.5" fill="#0f2240">agent codes one slice</text>
+        <text x="368" y="288" font-weight="600" fill="#0f2240">Review and scan</text><text x="368" y="306" font-size="11.5" fill="#5f6e84">diff read, CI checks</text>
+        <text x="368" y="340" font-size="11.5" fill="#5f6e84">repeat per slice</text>
+        <text x="608" y="128" font-weight="600" fill="#0f2240">Release gate</text><text x="608" y="146" font-size="11.5" fill="#5f6e84">review scaled to risk</text>
+        <text x="608" y="208" font-weight="600" fill="#0f2240">Retro</text><text x="608" y="226" font-size="11.5" fill="#5f6e84">learn from misses</text>
+        <text x="368" y="376" font-size="11.5" fill="#5f6e84">retro updates the spec and agent rules</text>
+      </g>
+      <g fill="none" stroke="#8a99ad" stroke-width="1.25">
+        <path d="M128 160V184" marker-end="url(#hy-arrow)"/><path d="M216 212H248V124H280" marker-end="url(#hy-arrow)"/>
+        <path d="M368 160V184" marker-end="url(#hy-arrow)"/><path d="M368 240V264" marker-end="url(#hy-arrow)"/>
+        <path d="M280 292H272V144H280" marker-end="url(#hy-arrow)"/><path d="M456 292H488V132H520" marker-end="url(#hy-arrow)"/>
+        <path d="M608 160V184" marker-end="url(#hy-arrow)"/><path d="M608 240V384H128V352" marker-end="url(#hy-arrow)"/>
+      </g>
+    </svg>
+    <figcaption>Specification and planning gate the start, each slice runs test-first with a human reading the diff, and a release gate plus retro close the cycle.</figcaption>
+  </figure>
+
+  <h3>What to borrow from waterfall</h3>
+  <p>Waterfall's enduring insight is that the cheapest place to fix a mistake is before it is built. With AI agents that insight becomes stronger, not weaker, because an agent executes an ambiguous instruction literally and confidently.</p>
+  <ul>
+    <li><strong>Requirements before prompts.</strong> Write a short specification (the problem, users, acceptance criteria, data handled, and what is explicitly out of scope) before the first prompt. This is the core of spec-driven development: the spec, not the chat log, is the source of truth. For <a href="index.html#projects">MealPartner</a>, a WhatsApp meal assistant I designed recently, the requirements went through several versions until every open question was closed, before a coding agent wrote a line.</li>
+    <li><strong>Design sign-off, lightweight.</strong> Ask the agent to propose a plan and architecture first; a human approves it before any code is generated. This is a phase gate measured in minutes, not weeks.</li>
+    <li><strong>Non-functional requirements up front.</strong> Security, privacy, performance and regulatory constraints rarely emerge from "make it work" prompting. State them in the spec and the repository's agent rules file. In MealPartner, deciding up front that the small local LLM never writes recipe content or links removed most of the hallucination and prompt-injection risk.</li>
+    <li><strong>Traceability.</strong> Keep the spec, plan and tasks in version control alongside the code, so anyone can see why the code is the way it is.</li>
+  </ul>
+
+  <h3>What to borrow from agile</h3>
+  <p>Agile's insight is that you learn by shipping small things and inspecting them. Vibe coding already has the short loop; what it lacks is the inspection.</p>
+  <ul>
+    <li><strong>Small increments.</strong> One user story or task per agent session, with a commit at each green step. Large wholesale diffs are where unreviewed risk hides.</li>
+    <li><strong>A real definition of done.</strong> "It runs" is not done. Done means acceptance criteria met, tests pass, code reviewed, security scans clean and the spec updated. In <a href="index.html#projects">BeatKeeper</a>, my multi-agent content campaign system, an uncited claim cannot be approved and rules such as no auto-posting are enforced by tests, so the AI cannot quietly redefine done.</li>
+    <li><strong>Test-first.</strong> Have the agent write tests from the acceptance criteria before the implementation, and have a human read the tests. Tests become the agent's guardrail and the human's cheapest review surface.</li>
+    <li><strong>Collective ownership.</strong> At least one person must be able to explain every merged change. If nobody can, it is not ready to merge.</li>
+    <li><strong>Retrospectives that update the system.</strong> When the agent repeatedly gets something wrong, fix the spec template or the agent rules file, not just the code.</li>
+  </ul>
+
+  <h3>Scale the process to the blast radius</h3>
+  <p>Not every vibe-coded artefact needs the same rigour. A risk-tiered approach keeps the speed where it is safe and the discipline where it matters.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Tier</th><th>Examples</th><th>Recommended process</th></tr></thead>
+      <tbody>
+        <tr><td>1 · Throwaway</td><td>Personal scripts, spikes, weekend experiments</td><td>Pure vibe coding is fine; delete or rewrite before reuse</td></tr>
+        <tr><td>2 · Internal, low-risk</td><td>Team dashboards, internal tools with no sensitive data</td><td>Short spec, tests for core logic, one peer review, named owner</td></tr>
+        <tr><td>3 · Shared or business-critical</td><td>Customer-facing features, shared libraries, integrations</td><td>Full spec-driven flow, test-first, mandatory human review, SAST and secret scanning in CI</td></tr>
+        <tr><td>4 · Regulated or high-impact</td><td>Payments, identity, personal data, safety-relevant systems</td><td>All of tier 3, plus architecture and security sign-off, independent testing and an audit trail of AI involvement</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Best practices for vibe coding</h2>
+  <p>The practices below turn vibe coding from a gamble into a repeatable engineering habit. They apply whether you are a solo builder or a team lead.</p>
+
+  <h3>Before you prompt</h3>
+  <ol>
+    <li><strong>Decide which tier you are in.</strong> Be honest about whether this will ever touch real users, real data or real money. Prototypes have a habit of becoming production.</li>
+    <li><strong>Write the spec first.</strong> One page is enough: goal, users, acceptance criteria, constraints, out of scope. Iterate on the spec, not on prompts.</li>
+    <li><strong>Set up agent rules.</strong> Keep a <code>CLAUDE.md</code> / <code>AGENTS.md</code> or equivalent with architecture, coding standards, approved libraries, and security rules (no secrets in code, parameterised queries, authorisation on every endpoint).</li>
+    <li><strong>Ask for a plan, then approve it.</strong> Have the agent outline files, components and steps before it writes code. Correct the plan, not the output.</li>
+  </ol>
+
+  <h3>While you build</h3>
+  <ol>
+    <li><strong>Work in small slices.</strong> One task per session; commit after each passing step so you can roll back cleanly.</li>
+    <li><strong>Tests before code.</strong> Ask for failing tests derived from the acceptance criteria, read them, then let the agent make them pass.</li>
+    <li><strong>Read the diff.</strong> At minimum, skim every change for things you did not ask for: new dependencies, disabled checks, hard-coded credentials, deleted tests.</li>
+    <li><strong>Keep the human in the architecture.</strong> Let the agent choose variable names, not trust boundaries. Decisions about data flows, authentication and integrations stay with a person.</li>
+    <li><strong>Reset context when it drifts.</strong> Long sessions accumulate confusion. Start a fresh session from the spec and current code rather than arguing with a confused agent.</li>
+  </ol>
+
+  <h3>Before you ship</h3>
+  <ol>
+    <li><strong>Automate the safety net.</strong> Run static analysis, dependency and secret scanning in CI on every AI-generated change; the research shows prompting alone does not make code secure. It is the same principle behind <a href="index.html#projects">Attic</a>, my Gmail cleanup agent: the LLM only proposes actions, and fixed server-side guardrails decide what is allowed.</li>
+    <li><strong>Human review proportional to risk.</strong> Tier 3 and 4 changes need a reviewer who can explain the code, not just approve it.</li>
+    <li><strong>Document as you go.</strong> Have the agent update the README, spec and change log in the same commit. Documentation is now nearly free; skipping it no longer saves time.</li>
+    <li><strong>Assign an owner.</strong> Every vibe-coded app that survives past a demo needs a named person accountable for maintaining it.</li>
+  </ol>
+
+  <h3>For organisations</h3>
+  <ol>
+    <li><strong>Provide a sanctioned path.</strong> Approved tools with enterprise controls beat a ban that drives usage underground.</li>
+    <li><strong>Separate sandbox from production.</strong> Citizen developers build freely in a sandbox; promotion to production goes through review, as any other change would.</li>
+    <li><strong>Measure outcomes, not output.</strong> Lines of code generated is a vanity metric. Track lead time, escaped defects, security findings and rework.</li>
+    <li><strong>Invest in review skills.</strong> As agents write more code, the scarce skill becomes reading, specifying and testing it. Train for that.</li>
+  </ol>
+
+  <h2>Conclusion</h2>
+  <p>Vibe coding has changed who can build software and how fast an idea becomes something you can click. That is a genuine shift, and organisations that ignore it will lose ground. But the software development life cycle was never really about typing code; it was about understanding the problem, agreeing what good looks like, checking that you got there, and being able to change it safely later. None of those needs went away when the typing did.</p>
+  <p>The principles of waterfall and agile still apply; they just move. Waterfall's discipline moves into the spec and the plan the agent works from. Agile's discipline moves into small slices, test-first loops and a definition of done that "it runs" cannot satisfy. Vibes stay where they belong: inside the build loop, and in the throwaway experiments where they shine.</p>
+  <div class="pull"><p>The question is no longer whether to vibe code, but how much structure each piece of work deserves.</p></div>
+  <p>Answer that honestly, and you get the speed of the vibe with the reliability of engineering.</p>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="https://superwhisper.com/vibe-coding" target="_blank" rel="noopener">Karpathy's original vibe coding post, as reproduced by Superwhisper</a></li>
+    <li><a href="https://codegen.com/blog/glossary/vibe-coding" target="_blank" rel="noopener">Vibe coding glossary entry, including agentic engineering (Codegen)</a></li>
+    <li><a href="https://horadecodar.com.br/vibe-coding-meaning/" target="_blank" rel="noopener">Vibe coding meaning, Collins Word of the Year and Willison's distinction (Hora de Codar)</a></li>
+    <li><a href="https://keyholesoftware.com/vibe-coding-trends-2026/" target="_blank" rel="noopener">Vibe Coding Trends 2026: Adoption, Productivity, and Code Quality Data (Keyhole Software)</a></li>
+    <li><a href="https://www.superblocks.com/blog/vibe-coding-enterprise-adoption" target="_blank" rel="noopener">Vibe Coding Enterprise Adoption: 2026 Benchmarks (Superblocks)</a></li>
+    <li><a href="https://arxiv.org/html/2512.03262v1" target="_blank" rel="noopener">Is Vibe Coding Safe? Benchmarking Vulnerability of Agent-Generated Code (SusVibes, arXiv / ICML 2026)</a></li>
+    <li><a href="https://labs.cloudsecurityalliance.org/research/csa-research-note-ai-codegen-vulnerability-debt-2026" target="_blank" rel="noopener">Vibe Coding Security Debt: AI-Generated Vulnerabilities at Scale (Cloud Security Alliance)</a></li>
+    <li><a href="https://www.emergentmind.com/papers/2606.23130" target="_blank" rel="noopener">Understanding the (In)Security of Vibe-Coded Applications (Emergent Mind)</a></li>
+    <li><a href="https://www.theregister.com/2025/07/11/ai_code_tools_slow_down/" target="_blank" rel="noopener">METR study: AI tools slow experienced developers (The Register)</a></li>
+    <li><a href="https://github.blog/ai-and-ml/github-copilot/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/" target="_blank" rel="noopener">Spec-driven development with AI: Spec Kit (GitHub Blog)</a></li>
+    <li><a href="https://arxiv.org/html/2602.00180v1" target="_blank" rel="noopener">Spec-Driven Development: From Code to Contract (arXiv)</a></li>
+  </ul>
+
+  <div class="cta">
+    <h3>Let's talk</h3>
+    <p>I'm open to roles in AI solution consulting (presales) and product management.</p>
+    <div class="cta-actions">
+      <a class="btn primary" href="https://www.linkedin.com/in/apoorva-joshi" target="_blank" rel="noopener">Connect on LinkedIn →</a>
+      <a class="btn secondary" href="index.html#projects">View my projects</a>
+      <a class="btn secondary" href="index.html#blogs">More posts</a>
+    </div>
+  </div>
+</article>
+
+<footer>
+  <span>© 2026 Apoorva Joshi</span>
+  <span>Singapore</span>
+</footer>
+
+<!-- Visitor analytics: GoatCounter -->
+<script data-goatcounter="https://apoorvaaj.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>
