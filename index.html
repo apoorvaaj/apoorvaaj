@@ -998,6 +998,17 @@
   .demo-done p { font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.2rem; color: var(--text-dim); }
   .demo-done strong { color: var(--text); }
 
+
+  /* Personal blog card */
+  .personal-post { display: block; text-decoration: none; color: inherit; background: linear-gradient(135deg, var(--surface) 0%, rgba(10,113,120,0.06) 100%);
+                   border: 1px solid rgba(10,113,120,0.3); border-left: 4px solid var(--accent); padding: 2.2rem 2.4rem; margin-bottom: 2rem; transition: border-color 0.2s, transform 0.2s; }
+  .personal-post:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .personal-kicker { font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); font-weight: bold; margin-bottom: 0.8rem; }
+  .personal-title { font-family: var(--serif); font-weight: 500; font-size: 1.9rem; line-height: 1.2; margin-bottom: 0.9rem; color: var(--text); }
+  .personal-title em { color: var(--accent); }
+  .personal-excerpt { font-size: 0.88rem; line-height: 1.75; color: var(--text-dim); max-width: 720px; margin-bottom: 1.2rem; }
+  .personal-cta { display: inline-block; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; background: var(--accent); padding: 0.75rem 1.4rem; }
+
   /* ==================== MOBILE ==================== */
   @media (max-width: 768px) {
     .page { padding-top: 64px; }
@@ -1048,6 +1059,9 @@
     .blog-featured { padding: 2.8rem 1.2rem 1.4rem; }
     .blog-featured::before { top: 1rem; right: 1rem; }
     .blog-featured-title { font-size: 1.6rem; }
+    .personal-post { padding: 1.5rem 1.2rem; }
+    .personal-title { font-size: 1.5rem; }
+    .personal-cta { display: block; text-align: center; }
     .blog-item { grid-template-columns: 1fr; gap: 0.3rem; }
     .blog-item-num { display: none; }
 
@@ -1498,10 +1512,18 @@
 <div class="page" id="blogs">
   <div class="section">
     <div class="projects-header">
-      <div class="section-label">Writing · Medium</div>
+      <div class="section-label">Writing · Blog &amp; Medium</div>
       <h2 class="page-title">Thoughts &amp;<br><span class="accent">Blogs</span></h2>
-      <p class="page-subtitle">Articles on Medium — on AI and technology policy, data storytelling, practical analysis and machine-learning practice, alongside earlier pieces on NLP research and embedding analytics in large organisations.</p>
+      <p class="page-subtitle">A personal note on my career break, and articles on Medium — on AI and technology policy, data storytelling, practical analysis and machine-learning practice, alongside earlier pieces on NLP research and embedding analytics in large organisations.</p>
     </div>
+
+    <!-- Personal blog (hosted on this site) -->
+    <a class="personal-post" href="seven-years.html">
+      <div class="personal-kicker">From my blog · Personal · Oct 2026 · 5 min read</div>
+      <div class="personal-title">Seven Years, Well Spent: <em>Why I Stepped Away, and What I Bring Back</em></div>
+      <p class="personal-excerpt">“There is a line on my CV that reads 2019 to 2026. On paper, it is just two dates and a silence. I want to fill that silence, honestly.” Why I paused my career, what those years actually held, from leading volunteers to building my first tools, and why I'm returning because of them, not despite them.</p>
+      <span class="personal-cta">Read the article →</span>
+    </a>
 
     <!-- Article 1: Intentional Tech — Featured (latest) -->
     <div class="blog-featured" onclick="window.open('https://medium.com/@apoorva.aj/not-more-tech-not-less-tech-intentional-tech-6fa0f1c4f865','_blank')" >
@@ -1881,6 +1903,14 @@
     }
     column.appendChild(row);
   });
+
+  // Open a section from the address bar, e.g. index.html#blogs (used by links from the article page)
+  function pageFromHash() {
+    var id = (location.hash || '').replace('#', '');
+    if (id && document.getElementById(id) && document.getElementById('nav-' + id)) showPage(id);
+  }
+  window.addEventListener('hashchange', pageFromHash);
+  document.addEventListener('DOMContentLoaded', pageFromHash);
 
   // Skill bar animation
   function animateBars() {
